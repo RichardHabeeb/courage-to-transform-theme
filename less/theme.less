@@ -1,0 +1,39 @@
+@import "fonts.less";
+
+/* 1rem will equal the grid width */
+@grid-height: 0.25rem;
+
+:root {
+}
+
+.default-font(@line-height, @font-size) {
+	.libre-franklin(@line-height, @font-size);
+}
+
+h1 {
+	.default-font(12*@grid-height, 10*@grid-height);
+}
+
+h2 {
+	.default-font(10*@grid-height, 10*@grid-height);
+}
+
+h3 {
+	.default-font(8*@grid-height, 8*@grid-height);
+}
+
+h4 {
+	.default-font(6*@grid-height, 6*@grid-height);
+}
+
+h5 {
+	.default-font(4*@grid-height, 4*@grid-height);
+}
+
+h6 {
+	.default-font(2*@grid-height, 2*@grid-height);
+}
+
+p {
+	.default-font(1*@grid-height, 1*@grid-height);
+}

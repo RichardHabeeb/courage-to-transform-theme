@@ -1,0 +1,91 @@
+/*!
+	Theme Name: Wordpress Boilerplate
+	Theme URI: https://github.com/RichardHabeeb/wordpress-boilerplate
+	Author: Richard Habeeb
+	Author URI: https://habeebr.bitbucket.io/
+	Description:
+	Tags:
+	Version: 1.0
+	Requires at least: 5.0
+	Tested up to: 5.4
+	Requires PHP: 7.0
+	License: Apache
+	License URI:
+	Text Domain: wordpress-boilerplate
+*/
+@import "reset.less";
+
+
+.clip, .grid.clip > * {
+	overflow: clip;
+}
+
+.wrap {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.grid {
+	display: grid;
+	grid-auto-rows: minmax(@grid-height, auto);
+}
+
+.cell-operations(@i, @suffix...) {
+	& > .row-start-@{suffix}@{i} {
+		grid-row-start: @i;
+	}
+	& > .col-start-@{suffix}@{i} {
+		grid-column-start: @i;
+	}
+	& > .row-span-@{suffix}@{i},
+	& > .rows-@{suffix}@{i} {
+		grid-row-end: span @i;
+	}
+	& > .col-span-@{suffix}@{i},
+	& > .cols-@{suffix}@{i} {
+		grid-column-end: span @i;
+	}
+	& > .row-pull-@{suffix}@{i} {
+		grid-row-start: -@i;
+	}
+	& > .col-pull-@{suffix}@{i} {
+		grid-column-start: -@i;
+	}
+}
+
+.generate-widths(@n, @i: 1) when (@i =< @n) {
+
+	.grid {
+		.cell-operations(@i);
+	}
+
+	@media (orientation: landscape) {
+		html.landscape-@{i} {
+			font-size: calc(100vw / @i);
+		}
+
+		.grid {
+			&.landscape-@{i} {
+				grid-template-columns: repeat(@i, 1fr);
+			}
+			.cell-operations(@i, l);
+		}
+	}
+	@media (orientation: portrait) {
+		html.portrait-@{i} {
+			font-size: calc(100vw / @i);
+		}
+
+		.grid {
+			&.portrait-@{i} {
+				grid-template-columns: repeat(@i, 1fr);
+			}
+			.cell-operations(@i, p);
+		}
+	}
+
+
+	.generate-widths(@n, (@i + 1));
+}
+.generate-widths(32);
+

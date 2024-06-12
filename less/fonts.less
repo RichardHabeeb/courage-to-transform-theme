@@ -1,0 +1,24 @@
+
+
+.baseline-font(@line-height, @cap-height, @descender-ratio, @cap-height-ratio) {
+	@font-size: calc(@cap-height / @cap-height-ratio);
+	line-height: @line-height;
+	font-size: @font-size;
+	transform: translateY(calc((@line-height - @font-size)/2 + @font-size * @descender-ratio));
+}
+
+
+
+
+/* Libre Franklin Font */
+
+.libre-franklin(@line-height, @cap-height) {
+	@descender-ratio: calc(130 / 1000);
+	@cap-height-ratio: calc(740 / 1000);
+	--descender-ratio: @descender-ratio;
+	--cap-height-ratio: @cap-height-ratio;
+
+	font-family: "Libre Franklin", sans-serif;
+	.baseline-font(@line-height, @cap-height, var(--descender-ratio), var(--cap-height-ratio));
+}
+

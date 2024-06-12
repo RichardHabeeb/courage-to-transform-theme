@@ -1,0 +1,25 @@
+{
+  "name": "wordpress-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "less": "^4.2.0",
+    "less-plugin-clean-css": "^1.5.1",
+    "normalize.css": "^8.0.1"
+  },
+  "scripts": {
+    "lessc": "lessc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RichardHabeeb/wordpress-boilerplate.git"
+  },
+  "author": "Richard Habeeb",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/RichardHabeeb/wordpress-boilerplate/issues"
+  },
+  "homepage": "https://github.com/RichardHabeeb/wordpress-boilerplate#readme"
+}
