@@ -20,15 +20,55 @@
 	overflow: clip;
 }
 
-.wrap {
+.clip-x, .grid.clip-x > * {
+	overflow-x: clip;
+}
+
+
+.wrap, .break-word {
+  word-wrap: break-word;
+}
+
+.break-all {
   word-wrap: break-word;
   word-break: break-all;
 }
 
+.center {
+	text-align: center;
+}
+
+.sticky-top {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+
+.grid-height(@n-rows) {
+	@ret: (@n-rows * @grid-full-height - @gutter-height);
+}
+
+.grid-width(@n-cols) {
+	@ret: (@n-cols * @grid-full-width - @gutter-width);
+}
+
+.grid-full-height(@n-rows) {
+	@ret: (@n-rows * @grid-full-height);
+}
+
+.grid-full-width(@n-cols) {
+	@ret: (@n-cols * @grid-full-width);
+}
+
 .grid {
 	display: grid;
+	grid-template-columns: repeat(auto-fill, @grid-width);
 	grid-auto-rows: minmax(@grid-height, auto);
+	column-gap: @gutter-width;
+	row-gap: @gutter-height;
+	//margin-right: -@gutter-width;
 }
+
 
 .cell-operations(@i, @suffix...) {
 	& > .row-start-@{suffix}@{i} {
@@ -40,6 +80,7 @@
 	& > .row-span-@{suffix}@{i},
 	& > .rows-@{suffix}@{i} {
 		grid-row-end: span @i;
+		max-height: .grid-height(@i)[@ret];
 	}
 	& > .col-span-@{suffix}@{i},
 	& > .cols-@{suffix}@{i} {
@@ -55,32 +96,56 @@
 
 .generate-widths(@n, @i: 1) when (@i =< @n) {
 
+	.cap-height-@{i} {
+		--cap-height: .grid-height(@i)[@ret];
+	}
+
+	.line-height-@{i} {
+		--line-height: .grid-height(@i)[@ret];
+		line-height: var(--line-height);
+	}
+
+	.height-@{i} {
+		height: .grid-height(@i)[@ret];
+	}
+
+	.margin-top-@{i} {
+		margin-top: .grid-full-height(@i)[@ret];
+	}
+
+	.margin-bottom-@{i} {
+		margin-bottom: .grid-full-height(@i)[@ret];
+	}
+
+	.margin-left-@{i} {
+		margin-left: .grid-full-width(@i)[@ret];
+	}
+
+	.margin-right-@{i} {
+		margin-right: .grid-full-width(@i)[@ret];
+	}
+
 	.grid {
 		.cell-operations(@i);
 	}
 
 	@media (orientation: landscape) {
 		html.landscape-@{i} {
-			font-size: calc(100vw / @i);
+			--grid-cols: @i;
+			font-size: ((100vw / @i) + (100vw / @i) * (@gutter-width-ratio / @i));
 		}
 
 		.grid {
-			&.landscape-@{i} {
-				grid-template-columns: repeat(@i, 1fr);
-			}
-			.cell-operations(@i, l);
+			.cell-operations(@i, l-);
 		}
 	}
 	@media (orientation: portrait) {
 		html.portrait-@{i} {
-			font-size: calc(100vw / @i);
+			font-size: ((100vw / @i) + (100vw / @i) * (@gutter-width-ratio / @i));
 		}
 
 		.grid {
-			&.portrait-@{i} {
-				grid-template-columns: repeat(@i, 1fr);
-			}
-			.cell-operations(@i, p);
+			.cell-operations(@i, p-);
 		}
 	}
 

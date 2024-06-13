@@ -1,24 +1,40 @@
 
 
-.baseline-font(@line-height, @cap-height, @descender-ratio, @cap-height-ratio) {
-	@font-size: calc(@cap-height / @cap-height-ratio);
-	line-height: @line-height;
-	font-size: @font-size;
-	transform: translateY(calc((@line-height - @font-size)/2 + @font-size * @descender-ratio));
-}
-
-
-
-
-/* Libre Franklin Font */
-
-.libre-franklin(@line-height, @cap-height) {
-	@descender-ratio: calc(130 / 1000);
-	@cap-height-ratio: calc(740 / 1000);
+.baseline-font(@line-height, @cap-height, @descender-ratio, @cap-height-ratio, @left-adjust-ratio: 0) {
+	--line-height: @line-height;
+	--cap-height: @cap-height;
 	--descender-ratio: @descender-ratio;
 	--cap-height-ratio: @cap-height-ratio;
+	--left-adjust-ratio: @left-adjust-ratio;
+	--font-size: calc(var(--cap-height) / var(--cap-height-ratio));
+	line-height: var(--line-height);
+	font-size: var(--font-size);
+	transform: translateY(calc((var(--line-height) - var(--font-size))/2 + var(--font-size) * var(--descender-ratio))) translateX(calc(var(--font-size) * var(--left-adjust-ratio)));
+}
+
+
+
+
+.libre-franklin(@line-height, @cap-height) {
+	@descender-ratio: calc(140 / 1000);
+	@cap-height-ratio: calc(740 / 1000);
+	@left-adjust-ratio: -0.03;
 
 	font-family: "Libre Franklin", sans-serif;
-	.baseline-font(@line-height, @cap-height, var(--descender-ratio), var(--cap-height-ratio));
+	font-optical-sizing: auto;
+	.baseline-font(@line-height, @cap-height, @descender-ratio,
+		@cap-height-ratio, @left-adjust-ratio);
 }
+
+.playfair-display(@line-height, @cap-height) {
+	@descender-ratio: calc(86 / 1000);
+	@cap-height-ratio: calc(705 / 1000);
+	@left-adjust-ratio: -0.02;
+
+	font-family: "Playfair Display", serif;
+	font-optical-sizing: auto;
+	.baseline-font(@line-height, @cap-height, @descender-ratio,
+		@cap-height-ratio, @left-adjust-ratio);
+}
+
 

@@ -1,39 +1,83 @@
 @import "fonts.less";
 
-/* 1rem will equal the grid width */
-@grid-height: 0.25rem;
+@grid-full-width: 1rem; /* constant, do not change */
+@grid-full-height: 0.5rem;
+@gutter-width-ratio: 0.125;
+@gutter-height-ratio: 0.125;
 
-:root {
+@gutter-width:  (@grid-full-width  * @gutter-width-ratio);
+@gutter-height: (@grid-full-height * @gutter-height-ratio);
+@grid-width:  (@grid-full-width  - @gutter-width);
+@grid-height: (@grid-full-height - @gutter-height);
+
+
+/* Theme Colors */
+
+.make-color(@color) {
+	.bg-color-@{color} {
+		background-color: @@color;
+	}
+
+	.font-color-@{color} {
+		color: @@color;
+	}
+
+	.font-shadow-@{color} {
+		text-shadow: 0px 0px 1rem fade(@@color, 25%);
+	}
 }
 
-.default-font(@line-height, @font-size) {
-	.libre-franklin(@line-height, @font-size);
+@black: #212121;
+@rose-pink: #9e6f6d;
+@dark-green: #004038;
+@beige: #e8d9c0;
+@light-beige: #fff6e8;
+@grey: #323232;
+@darker-rose: #8f6152;
+@camel: #b99b69;
+
+.make-color(black);
+.make-color(rose-pink);
+.make-color(dark-green);
+.make-color(beige);
+.make-color(light-beige);
+.make-color(grey);
+.make-color(darker-rose);
+.make-color(camel);
+
+
+.default-font(@line-height-rows, @cap-height-rows) {
+	.playfair-display(
+		.grid-height(@line-height-rows)[@ret],
+		.grid-height(@cap-height-rows)[@ret]);
 }
+
 
 h1 {
-	.default-font(12*@grid-height, 10*@grid-height);
+	.default-font(12, 12);
 }
 
 h2 {
-	.default-font(10*@grid-height, 10*@grid-height);
+	.default-font(10, 10);
 }
 
 h3 {
-	.default-font(8*@grid-height, 8*@grid-height);
+	.default-font(8, 8);
 }
 
 h4 {
-	.default-font(6*@grid-height, 6*@grid-height);
+	.default-font(6, 6);
 }
 
 h5 {
-	.default-font(4*@grid-height, 4*@grid-height);
+	.default-font(4, 4);
 }
 
 h6 {
-	.default-font(2*@grid-height, 2*@grid-height);
+	.default-font(2, 2);
 }
 
 p {
-	.default-font(1*@grid-height, 1*@grid-height);
+	.default-font(1, 1);
 }
+
