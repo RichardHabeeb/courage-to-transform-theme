@@ -1,7 +1,7 @@
 @import "fonts.less";
 
 @grid-full-width: 1rem; /* constant, do not change */
-@grid-full-height: 0.5rem;
+@grid-full-height: 0.25rem; /* must use rem as this unit */
 @gutter-width-ratio: 0.125;
 @gutter-height-ratio: 0.125;
 
@@ -11,20 +11,58 @@
 @grid-height: (@grid-full-height - @gutter-height);
 
 
+:root {
+	--window-rows: 100;
+	--grid-full-width: @grid-full-width;
+	--grid-full-height: @grid-full-height;
+}
+
+
 /* Theme Colors */
 
 .make-color(@color) {
-	.bg-color-@{color} {
+	.bg-color-@{color}, .bg-@{color} {
 		background-color: @@color;
 	}
-
-	.font-color-@{color} {
+	.bg-color-@{color}-hover, .bg-@{color}-hover {
+		transition: ease-in-out 0.2s;
+		&:hover {
+			background-color: @@color;
+		}
+	}
+	.color-@{color}, .font-color-@{color} {
 		color: @@color;
 	}
-
 	.font-shadow-@{color} {
-		text-shadow: 0px 0px 1rem fade(@@color, 25%);
+		text-shadow: 0px 0px 0.5rem @@color;
 	}
+	.box-shadow-@{color} {
+		box-shadow: 0px 0px 0.5rem @@color;
+	}
+	.border-@{color} {
+		border: 2px solid @@color;
+	}
+
+	.make-faded-color(@percent) {
+		.bg-color-@{color}-@{percent}, .bg-@{color}-@{percent} {
+			background-color: fade(@@color, @percent);
+		}
+		.bg-color-@{color}-@{percent}-hover, .bg-@{color}-@{percent}-hover {
+			transition: ease-in-out 0.2s;
+			&:hover {
+				background-color: fade(@@color, @percent);
+			}
+		}
+		.font-shadow-@{color}-@{percent} {
+			text-shadow: 0px 0px 0.5rem fade(@@color, @percent);
+		}
+		.box-shadow-@{color}-@{percent} {
+			box-shadow: 0px 0px 0.5rem fade(@@color, @percent);
+		}
+	}
+	.make-faded-color(75);
+	.make-faded-color(50);
+	.make-faded-color(25);
 }
 
 @black: #212121;
@@ -46,38 +84,87 @@
 .make-color(camel);
 
 
-.default-font(@line-height-rows, @cap-height-rows) {
+.default-font(@line-height-rows: 1, @cap-height-rows: 1) {
 	.playfair-display(
 		.grid-height(@line-height-rows)[@ret],
 		.grid-height(@cap-height-rows)[@ret]);
 }
 
+.secondary-font(@line-height-rows: 1, @cap-height-rows: 1) {
+	.libre-franklin(
+		.grid-height(@line-height-rows)[@ret],
+		.grid-height(@cap-height-rows)[@ret]);
+}
+
+.default-input-style {
+	.bg-color-beige;
+	.font-color-darker-rose;
+}
+
+.box-style {
+}
 
 h1 {
 	.default-font(12, 12);
+	.font-color-darker-rose;
+	.font-weight-100;
+	letter-spacing: -0.03em;
 }
 
 h2 {
 	.default-font(10, 10);
+	.font-color-darker-rose;
+	.font-weight-100;
+	letter-spacing: -0.03em;
 }
 
 h3 {
 	.default-font(8, 8);
+	.font-color-darker-rose;
+	.font-weight-100;
 }
 
 h4 {
-	.default-font(6, 6);
+	.default-font(4, 4);
+	.font-color-darker-rose;
+	.font-weight-100;
 }
 
 h5 {
-	.default-font(4, 4);
+	.default-font(3, 3);
+	.font-color-darker-rose;
+	.font-weight-100;
+	letter-spacing: -0.03em;
 }
 
 h6 {
 	.default-font(2, 2);
+	.font-color-darker-rose;
+	.font-weight-100;
 }
 
-p {
-	.default-font(1, 1);
+
+p, ul > li {
+	.secondary-font(1, 1);
+	.font-color-grey;
+	.font-weight-300;
+	letter-spacing: -0.04em;
+}
+
+button {
+	.default-input-style;
+	.box-style;
+
+	&.dark {
+		.bg-color-dark-green;
+		span {
+			.color-light-beige;
+		}
+	}
+
+	span {
+		.default-font(1, 1);
+		.font-color-grey;
+	}
 }
 

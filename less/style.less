@@ -16,11 +16,11 @@
 @import "reset.less";
 
 
-.clip, .grid.clip > * {
+.clip {
 	overflow: clip;
 }
 
-.clip-x, .grid.clip-x > * {
+.clip-x {
 	overflow-x: clip;
 }
 
@@ -38,10 +38,64 @@
 	text-align: center;
 }
 
+.left {
+	text-align: left;
+}
+
+.flex {
+	display: flex;
+}
+
+.flex-center {
+	.flex;
+	justify-content: center;
+}
+
+.flex-left {
+	.flex;
+	justify-content: left;
+}
+
+.flex-right {
+	.flex;
+	justify-content: end;
+}
+
+.flex-v-center {
+	.flex;
+	align-items: center;
+}
+
+.flex-top {
+	.flex;
+	align-items: baseline;
+}
+
+.flex-bottom {
+	.flex;
+	align-items: end;
+}
+
 .sticky-top {
 	position: sticky;
 	top: 0;
 	z-index: 100;
+}
+
+.full-screen-height {
+	height: 100vh;
+}
+
+.full-height {
+	height: 100%;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.full-screen-margin-top {
+	margin-top: 100vh;
 }
 
 .grid-height(@n-rows) {
@@ -69,28 +123,63 @@
 	//margin-right: -@gutter-width;
 }
 
+.grid-fixed {
+	grid-template-rows: repeat(auto-fill, @grid-height);
+}
+
+.grid-fixed-height {
+	grid-auto-rows: @grid-height;
+}
+
+.col-span-full, .cols-full {
+	grid-column: 1/-1;
+}
+
+.row-span-window {
+	grid-row: span var(--window-rows) / span var(--window-rows);
+}
+
+@media (orientation: landscape) {
+	.col-span-l-full, .cols-l-full {
+		grid-column: 1/-1;
+	}
+}
+
+@media (orientation: portrait) {
+	.col-span-p-full, .cols-p-full {
+		grid-column: 1/-1;
+	}
+}
+
+
 
 .cell-operations(@i, @suffix...) {
-	& > .row-start-@{suffix}@{i} {
-		grid-row-start: @i;
-	}
-	& > .col-start-@{suffix}@{i} {
-		grid-column-start: @i;
-	}
 	& > .row-span-@{suffix}@{i},
 	& > .rows-@{suffix}@{i} {
-		grid-row-end: span @i;
+		grid-row: span @i / span @i;
 		max-height: .grid-height(@i)[@ret];
 	}
 	& > .col-span-@{suffix}@{i},
 	& > .cols-@{suffix}@{i} {
-		grid-column-end: span @i;
+		grid-column: span @i / span @i;
+	}
+	& > .row-start-@{suffix}@{i} {
+		grid-row-start: @i !important;
+	}
+	& > .col-start-@{suffix}@{i} {
+		grid-column-start: @i !important;
 	}
 	& > .row-pull-@{suffix}@{i} {
-		grid-row-start: -@i;
+		grid-row-end: -@i !important;
 	}
 	& > .col-pull-@{suffix}@{i} {
-		grid-column-start: -@i;
+		grid-column-end: -@i !important;
+	}
+	& > .row-fill-@{suffix}@{i} {
+		grid-row: @i / -1;
+	}
+	& > .col-fill-@{suffix}@{i} {
+		grid-column: @i / -1;
 	}
 }
 
@@ -125,14 +214,46 @@
 		margin-right: .grid-full-width(@i)[@ret];
 	}
 
+	.padding-top-@{i} {
+		padding-top: .grid-full-height(@i)[@ret];
+	}
+
+	.padding-bottom-@{i} {
+		padding-bottom: .grid-full-height(@i)[@ret];
+	}
+
+	.padding-left-@{i} {
+		padding-left: .grid-full-width(@i)[@ret];
+	}
+
+	.padding-right-@{i} {
+		padding-right: .grid-full-width(@i)[@ret];
+	}
+
 	.grid {
 		.cell-operations(@i);
+	}
+
+	html.landscape-@{i}, html.portrait-@{i} {
+		.grid > .col-span-half {
+			grid-column: span (@i/2) / span (@i/2);
+		}
+		.grid > .col-span-third {
+			grid-column: span (@i/3) / span (@i/3);
+		}
 	}
 
 	@media (orientation: landscape) {
 		html.landscape-@{i} {
 			--grid-cols: @i;
 			font-size: ((100vw / @i) + (100vw / @i) * (@gutter-width-ratio / @i));
+
+			.grid > .col-span-l-half {
+				grid-column: span (@i/2) / span (@i/2);
+			}
+			.grid > .col-span-l-third {
+				grid-column: span (@i/3) / span (@i/3);
+			}
 		}
 
 		.grid {
@@ -142,6 +263,13 @@
 	@media (orientation: portrait) {
 		html.portrait-@{i} {
 			font-size: ((100vw / @i) + (100vw / @i) * (@gutter-width-ratio / @i));
+
+			.grid > .col-span-p-half {
+				grid-column: span (@i/2) / span (@i/2);
+			}
+			.grid > .col-span-p-third {
+				grid-column: span (@i/3) / span (@i/3);
+			}
 		}
 
 		.grid {
@@ -152,5 +280,51 @@
 
 	.generate-widths(@n, (@i + 1));
 }
-.generate-widths(32);
+.generate-widths(64);
+
+
+
+.hide {
+	display: none;
+}
+
+@media (orientation: landscape) {
+	.hide-l {
+		display: none;
+	}
+}
+
+@media (orientation: portrait) {
+	.hide-p {
+		display: none;
+	}
+}
+
+
+.bg-image-cover, *[data-bg-image] {
+	background-size: cover;
+	background-position: center;
+}
+
+*[data-link] {
+	cursor: pointer;
+}
+
+.hover-darken {
+	transition: ease-in-out 0.2s;
+
+	&:hover {
+		background-color: rgba(0,0,0,0.5);
+	}
+}
+
+.generate-font-weights(@n, @i: 100) when (@i =< @n) {
+	.font-weight-@{i} {
+		font-weight: @i;
+	}
+	.generate-font-weights(@n, (@i + 100));
+}
+.generate-font-weights(900);
+
+
 
