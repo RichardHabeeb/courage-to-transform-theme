@@ -12,17 +12,11 @@ $(node_modules):
 
 
 
-$(css)/%.css: less/%.less $(node_modules) $(css)
+$(css)/%.css: less/%.less $(node_modules) $(css) less/*.less
 	npm run --silent lessc -- $< > $@
 
-$(css)/%.min.css: less/%.less $(node_modules) $(css)
+$(css)/%.min.css: less/%.less $(node_modules) $(css) less/*.less
 	npm run --silent lessc -- --clean-css $< > $@
-
-$(node_modules)/normalize.css/normalize.css: $(node_modules)
-$(css)/normalize.min.css: $(node_modules)/normalize.css/normalize.css $(css)
-	npm run --silent lessc -- --clean-css $< > $@
-
-
 
 
 

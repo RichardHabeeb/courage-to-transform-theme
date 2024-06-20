@@ -14,6 +14,7 @@
 	Text Domain: wordpress-boilerplate
 */
 @import "reset.less";
+@import "theme.less";
 
 
 .clip {
@@ -40,6 +41,11 @@
 
 .left {
 	text-align: left;
+}
+
+
+.no-bullets, .list-style-none {
+	list-style: none;
 }
 
 .flex {
@@ -76,6 +82,11 @@
 	align-items: end;
 }
 
+.flex-column {
+	.flex;
+	flex-direction: column;
+}
+
 .sticky-top {
 	position: sticky;
 	top: 0;
@@ -96,6 +107,39 @@
 
 .full-screen-margin-top {
 	margin-top: 100vh;
+}
+
+.margin-remove-left-gutter {
+	margin-left: -@gutter-width;
+}
+
+.margin-remove-right-gutter {
+	margin-right: -@gutter-width;
+}
+
+.margin-remove-top-gutter {
+	margin-top: -@gutter-width;
+}
+
+.margin-remove-bottom-gutter {
+	margin-bottom: -@gutter-width;
+}
+
+.margin-remove-x-gutter {
+	.margin-remove-left-gutter;
+	.margin-remove-right-gutter;
+}
+
+.margin-remove-y-gutter {
+	.margin-remove-top-gutter;
+	.margin-remove-bottom-gutter;
+}
+
+.margin-remove-gutter {
+	.margin-remove-left-gutter;
+	.margin-remove-right-gutter;
+	.margin-remove-top-gutter;
+	.margin-remove-bottom-gutter;
 }
 
 .grid-height(@n-rows) {
@@ -120,7 +164,6 @@
 	grid-auto-rows: minmax(@grid-height, auto);
 	column-gap: @gutter-width;
 	row-gap: @gutter-height;
-	//margin-right: -@gutter-width;
 }
 
 .grid-fixed {
@@ -151,7 +194,9 @@
 	}
 }
 
-
+.row-span-auto {
+	height: fit-content;
+}
 
 .cell-operations(@i, @suffix...) {
 	& > .row-span-@{suffix}@{i},
@@ -190,7 +235,7 @@
 	}
 
 	.line-height-@{i} {
-		--line-height: .grid-height(@i)[@ret];
+		--line-height: .grid-full-height(@i)[@ret];
 		line-height: var(--line-height);
 	}
 
@@ -228,6 +273,16 @@
 
 	.padding-right-@{i} {
 		padding-right: .grid-full-width(@i)[@ret];
+	}
+
+	.padding-x-@{i} {
+		padding-left: .grid-full-width(@i)[@ret];
+		padding-right: .grid-full-width(@i)[@ret];
+	}
+
+	.padding-y-@{i} {
+		padding-top: .grid-full-height(@i)[@ret];
+		padding-bottom: .grid-full-height(@i)[@ret];
 	}
 
 	.grid {
@@ -310,13 +365,6 @@
 	cursor: pointer;
 }
 
-.hover-darken {
-	transition: ease-in-out 0.2s;
-
-	&:hover {
-		background-color: rgba(0,0,0,0.5);
-	}
-}
 
 .generate-font-weights(@n, @i: 100) when (@i =< @n) {
 	.font-weight-@{i} {
@@ -326,5 +374,17 @@
 }
 .generate-font-weights(900);
 
+*[data-tag] {
+	position: relative;
+}
+*[data-tag]::before {
+	content: attr(data-tag);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display:block;
+}
 
-
+.circle {
+	border-radius: 100%;
+}
