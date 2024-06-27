@@ -1,9 +1,22 @@
 @import "fonts.less";
 
+
+/* If you want the minimum font-size to be 10px, then set
+ * @grid-full-height = 10px / (320 / columns)
+ *
+ * If you want equal sized gutters set the
+ * gutter-height-ratio = grid-full-width/gutter-width-ratio
+ * with no units.
+ *
+ * If you want both:
+ * @grid-full-height = 10px / (320 / columns) + @gutter-width-ratio
+ *
+ */
+
 @grid-full-width: 1rem; /* constant, do not change */
 @grid-full-height: 0.25rem; /* must use rem as this unit */
 @gutter-width-ratio: 0.125;
-@gutter-height-ratio: 0.125;
+@gutter-height-ratio: 0.0;
 
 @gutter-width:  (@grid-full-width  * @gutter-width-ratio);
 @gutter-height: (@grid-full-height * @gutter-height-ratio);
@@ -116,7 +129,6 @@
 .box-style {
 }
 
-
 h1, .title {
 	.default-font(2, 2);
 	.font-color-darker-rose;
@@ -140,6 +152,9 @@ h3, .section-title-medium {
 
 h4, .section-title-small {
 	.default-font(3, 2);
+	@media (orientation: portrait) {
+		.default-font(4, 3);
+	}
 	.font-color-black;
 	.font-weight-100;
 	letter-spacing: -0.03em;
@@ -155,6 +170,9 @@ h5, .tile-title {
 
 h6, .tagline {
 	.default-font(1, 1);
+	@media (orientation: portrait) {
+		.default-font(3, 2);
+	}
 	.font-color-black;
 	.font-weight-100;
 	letter-spacing: -0.03em;
@@ -163,6 +181,9 @@ h6, .tagline {
 
 p, ul > li {
 	.secondary-font(2, 1);
+	@media (orientation: portrait) {
+		.secondary-font(3, 2);
+	}
 	.font-color-grey;
 	.font-weight-300;
 	letter-spacing: -0.03em;
@@ -173,31 +194,53 @@ p, ul {
 }
 
 button {
+	transition: ease-in-out 0.2s;
 	.default-input-style;
 	.box-style;
+
+	span {
+		.default-font(1, 1);
+		@media (orientation: portrait) {
+			.default-font(2, 2);
+		}
+		.font-color-grey;
+	}
+
+	&:hover {
+		.bg-color-camel;
+	}
 
 	&.dark {
 		.bg-color-dark-green;
 		span {
 			.color-light-beige;
 		}
-	}
 
-	span {
-		.default-font(1, 1);
-		.font-color-grey;
+		&:hover {
+		}
 	}
 }
 
-footer.bg-color-dark-green :is(a, p, h6, li) {
-	.color-light-beige
-}
 
 a {
 	.secondary-font(1, 1);
 	.font-color-grey;
 	.font-weight-300;
 	letter-spacing: -0.03em;
+
+	&:hover {
+		.font-color-black;
+	}
+}
+
+footer.bg-color-dark-green  {
+	a, p, h6, li {
+		.color-light-beige;
+	}
+
+	a:hover {
+		.color-camel;
+	}
 }
 
 *[data-tag]::before {
