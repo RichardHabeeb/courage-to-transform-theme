@@ -13,6 +13,7 @@
 	License URI:
 	Text Domain: wordpress-boilerplate
 */
+/*! */
 @import "reset.less";
 @import "theme.less";
 
@@ -33,6 +34,39 @@
 
 .grid-full-width(@n-cols) {
 	@ret: (@n-cols * @grid-full-width);
+}
+
+/*----------------------------------------------------------------------
+ * GLOBAL RULES
+ *----------------------------------------------------------------------*/
+.bg-image-cover, *[data-bg-image] {
+	background-size: cover;
+	background-position: center;
+}
+
+*[data-link] {
+	cursor: pointer;
+}
+
+*[data-tag] {
+	position: relative;
+}
+*[data-tag]::before {
+	content: attr(data-tag);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display:block;
+}
+
+:root {
+	--window-rows: 100;
+	--grid-full-width: @grid-full-width;
+	--grid-full-height: @grid-full-height;
+	--gutter-width: @gutter-width;
+	--gutter-height: @gutter-height;
+	--grid-width: @grid-width;
+	--grid-height: @grid-height;
 }
 
 
@@ -415,27 +449,4 @@
 	.device-rules(portrait, -p);
 }
 
-
-/*----------------------------------------------------------------------
- * GLOBAL RULES
- *----------------------------------------------------------------------*/
-.bg-image-cover, *[data-bg-image] {
-	background-size: cover;
-	background-position: center;
-}
-
-*[data-link] {
-	cursor: pointer;
-}
-
-*[data-tag] {
-	position: relative;
-}
-*[data-tag]::before {
-	content: attr(data-tag);
-	position: absolute;
-	top: 0;
-	left: 0;
-	display:block;
-}
 

@@ -1,0 +1,78 @@
+{
+	"version": 2,
+	"styles": {
+		"elements": {
+		},
+		"blocks": {
+			"core/button": {
+				"border": {
+					"radius": false
+				}
+			}
+		}
+	},
+	"settings": {
+		"typography": {
+			"fontFamilies": [
+				{
+					"name": "Sans-Serif",
+					"slug": "sans-serif",
+					"fontFamily": "Libre Franklin, sans-serif"
+				},
+				{
+					"name": "Serif",
+					"slug": "serif",
+					"fontFamily": "Playfair Display, serif"
+				}
+			]
+		},
+		"color": {
+			"background": true,
+			"link": true,
+			"text": true,
+			"defaultPalette": false,
+			"defaultDuotone": false,
+			"defaultGradients": false,
+			"custom": true,
+			"customDuotone": true,
+			"customGradient": true,
+			"palette": [
+				{
+					"color": "#212121",
+					"name": "Lead Black",
+					"slug": "lead-black"
+				},
+				{
+					"color": "#9e6f6d",
+					"name": "Rose Pink",
+					"slug": "rose-pink"
+				},
+				{
+					"color": "#e8d9c0",
+					"name": "Beige",
+					"slug": "beige"
+				},
+				{
+					"color": "#fff6e8",
+					"name": "Light Beige",
+					"slug": "light-beige"
+				},
+				{
+					"color": "#323232",
+					"name": "Grey",
+					"slug": "grey"
+				},
+				{
+					"color": "#8f6152",
+					"name": "Darker Rose",
+					"slug": "darker-rose"
+				},
+				{
+					"color": "#b99b69",
+					"name": "Camel",
+					"slug": "camel"
+				}
+			]
+		}
+	}
+}

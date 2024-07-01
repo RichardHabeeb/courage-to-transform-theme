@@ -5,12 +5,14 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
+    "clean-css": "^5.3.3",
+    "clean-css-cli": "^5.6.3",
     "less": "^4.2.0",
-    "less-plugin-clean-css": "^1.5.1",
     "normalize.css": "^8.0.1"
   },
   "scripts": {
-    "lessc": "lessc"
+    "lessc": "lessc",
+    "cleancss": "cleancss"
   },
   "repository": {
     "type": "git",

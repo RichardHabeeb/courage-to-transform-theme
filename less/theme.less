@@ -15,7 +15,7 @@
 
 @grid-full-width: 1rem; /* constant, do not change */
 @grid-full-height: 0.25rem; /* must use rem as this unit */
-@gutter-width-ratio: 0.125;
+@gutter-width-ratio: 0.25;
 @gutter-height-ratio: 0.0;
 
 @gutter-width:  (@grid-full-width  * @gutter-width-ratio);
@@ -24,11 +24,6 @@
 @grid-height: (@grid-full-height - @gutter-height);
 
 
-:root {
-	--window-rows: 100;
-	--grid-full-width: @grid-full-width;
-	--grid-full-height: @grid-full-height;
-}
 
 
 /* Theme Colors */
@@ -121,13 +116,7 @@
 		.grid-height(@cap-height-rows)[@ret]);
 }
 
-.default-input-style {
-	.bg-color-beige;
-	.font-color-darker-rose;
-}
 
-.box-style {
-}
 
 h1, .title {
 	.default-font(2, 2);
@@ -143,14 +132,14 @@ h2, .section-title-large {
 	letter-spacing: -0.03em;
 }
 
-h3, .section-title-medium {
+h3, .section-title-medium, article.page > h2 {
 	.default-font(4, 3);
 	.font-color-black;
 	.font-weight-100;
 	letter-spacing: -0.03em;
 }
 
-h4, .section-title-small {
+h4, .section-title-small, article.page > h3 {
 	.default-font(3, 2);
 	@media (orientation: portrait) {
 		.default-font(4, 3);
@@ -158,6 +147,7 @@ h4, .section-title-small {
 	.font-color-black;
 	.font-weight-100;
 	letter-spacing: -0.03em;
+	.padding-bottom-1;
 }
 
 h5, .tile-title {
@@ -176,10 +166,14 @@ h6, .tagline {
 	.font-color-black;
 	.font-weight-100;
 	letter-spacing: -0.03em;
+	.padding-bottom-1;
 }
 
+article.page > :is(h1, h2, h3, h4, h5, h6) {
+	.padding-bottom-2;
+}
 
-p, ul > li {
+p, ul > li, cite {
 	.secondary-font(2, 1);
 	@media (orientation: portrait) {
 		.secondary-font(3, 2);
@@ -193,17 +187,29 @@ p, ul {
 	.padding-bottom-1;
 }
 
-button {
-	transition: ease-in-out 0.2s;
-	.default-input-style;
-	.box-style;
+ul {
+	.padding-left-1;
+}
 
-	span {
+button, .wp-block-button, #menu-top-navbar > li {
+	transition: ease-in-out 0.2s;
+	.bg-color-beige;
+	.font-color-darker-rose;
+
+
+	.wp-element-button, .wp-block-button__link {
+		background-color: unset;
+		display: block;
+		.padding-1;
+	}
+
+	span, a {
 		.default-font(1, 1);
 		@media (orientation: portrait) {
 			.default-font(2, 2);
 		}
 		.font-color-grey;
+		text-decoration: none;
 	}
 
 	&:hover {
@@ -212,7 +218,7 @@ button {
 
 	&.dark {
 		.bg-color-dark-green;
-		span {
+		span, a {
 			.color-light-beige;
 		}
 
@@ -221,6 +227,23 @@ button {
 	}
 }
 
+#menu-top-navbar > li {
+	grid-column: span 3 / span 3;
+	a {
+		display:block;
+		.padding-y-1;
+		.center;
+		.full-width;
+	}
+}
+
+.wp-block-buttons {
+	.margin-top-2;
+
+	& > .wp-block-button {
+		padding: unset;
+	}
+}
 
 a {
 	.secondary-font(1, 1);
@@ -232,6 +255,24 @@ a {
 		.font-color-black;
 	}
 }
+
+figure.wp-block-image {
+	.margin-y-1;
+}
+
+.is-layout-flex {
+	gap: @gutter-width;
+}
+
+.wp-block-columns  {
+	.margin-y-2;
+
+	&.is-layout-flex {
+		gap: @gutter-width;
+	}
+}
+
+
 
 footer.bg-color-dark-green  {
 	a, p, h6, li {
@@ -248,3 +289,17 @@ footer.bg-color-dark-green  {
 	.font-color-grey;
 	.font-weight-900;
 }
+
+article.page > :is(hr, .wp-block-separator) {
+	.margin-y-2;
+	.margin-x-2;
+	border: none;
+	border-top: 1px dashed @black;
+}
+
+.widgets > aside {
+	.padding-bottom-1;
+}
+
+
+
