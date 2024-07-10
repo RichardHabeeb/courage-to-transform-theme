@@ -8,14 +8,12 @@
 
 		</h4>
 
-		<button
-				class="flex-center padding-1 width-l-10"
-				data-link="<?= get_permalink(get_theme_mod('home_tagline_button_link')); ?>">
-			<span class="line-height-3 margin-remove-excess-line-height">
-				<?= get_theme_mod('home_tagline_button'); ?>
+		<a
+				class="button width-l-10 center"
+				href="<?= get_permalink(get_theme_mod('home_tagline_button_link')); ?>">
+			<?= get_theme_mod('home_tagline_button'); ?>
 
-			</span>
-		</button>
+		</a>
 	</div>
 </div>
 
@@ -40,45 +38,53 @@
 </div>
 
 <div class="col-span-full row-span-40 grid">
-	<div class="col-start-l-2 col-span-6 margin-remove-right-p-gutter"
-		data-bg-image="<?= get_theme_mod('home_offerings_image_0'); ?>"
-		data-link="<?= get_permalink(get_theme_mod('home_offerings_page_0')); ?>">
-		<div class="full-width full-height flex-bottom bg-black-25 bg-black-50-hover">
+	<div
+			class="col-start-l-2 col-span-6 margin-remove-right-p-gutter"
+			data-bg-image="<?= get_theme_mod('home_offerings_image_0'); ?>">
+		<a
+				href="<?= get_permalink(get_theme_mod('home_offerings_page_0')); ?>"
+				class="full-width full-height flex-bottom bg-black-25 bg-black-50-hover no-underline">
 			<h5>
 				<?= get_theme_mod('home_offerings_label_0'); ?>
 
 			</h5>
-		</div>
+		</a>
 	</div>
-	<div class="col-span-6"
-		data-bg-image="<?= get_theme_mod('home_offerings_image_1'); ?>"
-		data-link="<?= get_permalink(get_theme_mod('home_offerings_page_1')); ?>">
-		<div class="full-width full-height flex-bottom bg-black-25 bg-black-50-hover">
+	<div
+			class="col-span-6"
+			data-bg-image="<?= get_theme_mod('home_offerings_image_1'); ?>">
+		<a
+				href="<?= get_permalink(get_theme_mod('home_offerings_page_1')); ?>"
+				class="full-width full-height flex-bottom bg-black-25 bg-black-50-hover no-underline">
 			<h5>
 				<?= get_theme_mod('home_offerings_label_1'); ?>
 
 			</h5>
-		</div>
+		</a>
 	</div>
-	<div class="col-span-6 margin-remove-right-p-gutter"
-		data-bg-image="<?= get_theme_mod('home_offerings_image_2'); ?>"
-		data-link="<?= get_permalink(get_theme_mod('home_offerings_page_2')); ?>">
-		<div class="full-width full-height flex-bottom bg-black-25 bg-black-50-hover">
+	<div
+			class="col-span-6 margin-remove-right-p-gutter"
+			data-bg-image="<?= get_theme_mod('home_offerings_image_2'); ?>">
+		<a
+				href="<?= get_permalink(get_theme_mod('home_offerings_page_2')); ?>"
+				class="full-width full-height flex-bottom bg-black-25 bg-black-50-hover no-underline">
 			<h5>
 				<?= get_theme_mod('home_offerings_label_2'); ?>
 
 			</h5>
-		</div>
+		</a>
 	</div>
-	<div class="col-span-6"
-		data-bg-image="<?= get_theme_mod('home_offerings_image_3'); ?>"
-		data-link="<?= get_permalink(get_theme_mod('home_offerings_page_3')); ?>">
-		<div class="full-width full-height flex-bottom bg-black-25 bg-black-50-hover">
+	<div
+			class="col-span-6"
+			data-bg-image="<?= get_theme_mod('home_offerings_image_3'); ?>">
+		<a
+				href="<?= get_permalink(get_theme_mod('home_offerings_page_3')); ?>"
+				class="full-width full-height flex-bottom bg-black-25 bg-black-50-hover no-underline">
 			<h5>
 				<?= get_theme_mod('home_offerings_label_3'); ?>
 
 			</h5>
-		</div>
+		</a>
 	</div>
 </div>
 <div class="col-span-full row-span-5">
@@ -112,11 +118,9 @@
 	<div class="col-start-l-13 cols-l-12 col-span-p-full">
 		<?= get_theme_mod_page_content('home_mini_bio_page') ?>
 
-		<button
-				class="padding-1 flex-center flex-v-center"
-				data-link="<?= get_permalink(get_theme_mod('home_bio_page_link')); ?>">
-			<span>Read my full bio here</span>
-		</button>
+		<a class="button center" href="<?= get_permalink(get_theme_mod('home_bio_page_link')); ?>">
+			Read my full bio here
+		</a>
 	</div>
 </div>
 
@@ -133,24 +137,28 @@
 
 <div class="col-fill-2 col-pull-2 row-span-auto padding-bottom-5 grid">
 	<div class="col-span-12 row-span-25" data-bg-image="https://i0.wp.com/couragetotransform.com/wp-content/uploads/2024/02/angry-cry.png?w=1640&ssl=1">
-		<div class="bg-color-black-50 bg-color-black-75-hover full-height padding-x-1 flex-bottom" data-link="#article1">
+		<a
+				class="bg-color-black-50 bg-color-black-75-hover full-height padding-x-1 flex-bottom no-underline"
+				href="#article1">
 			<div>
 				<h5>
 					Why Do I Cry When I’m Angry? A Five Element and Physiological Understanding Behind Angry Tears
 				</h5>
 				<p class="line-height-1 cap-height-1 font-color-light-beige"><i>1/1/2024</i></p>
 			</div>
-		</div>
+		</a>
 	</div>
 	<div class="col-span-12 row-span-25" data-bg-image="https://i0.wp.com/couragetotransform.com/wp-content/uploads/2024/02/taking-a-chance-on-yourself.png?w=1640&ssl=1">
-		<div class="bg-color-black-50 bg-color-black-75-hover full-height padding-x-1 flex-bottom" data-link="#article1">
+		<a
+				class="bg-color-black-50 bg-color-black-75-hover full-height padding-x-1 flex-bottom no-underline"
+				href="#article1">
 			<div>
 				<h5>
 					Embracing Uncertainty: Letting Go to Step Forward, and Recognizing Manipulation
 				</h5>
 				<p class="line-height-1 cap-height-1 font-color-light-beige"><i>1/1/2024</i></p>
 			</div>
-		</div>
+		</a>
 	</div>
 </div>
 

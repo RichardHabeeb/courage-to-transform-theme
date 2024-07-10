@@ -2,7 +2,7 @@
 
 <?php while (have_posts()): ?>
 <article
-			<?php post_class("col-fill-l-8 col-fill-p-2 col-pull-2 row-span-auto padding-bottom-5 padding-top-2"); ?>
+			<?php post_class("col-fill-l-8 col-fill-p-2 col-pull-2 row-span-auto padding-bottom-5 padding-top-1"); ?>
 			id="post-<?php the_ID(); ?>">
 
 	<?php the_post(); ?>

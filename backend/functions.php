@@ -1,5 +1,61 @@
 <?php
 
+/******************************************************************************
+ * GENERIC HELPERS
+ *****************************************************************************/
+
+/* Gets the page contents of a theme mod which is a page index */
+function get_theme_mod_page_content($setting) {
+	return apply_filters('the_content',
+		get_page(get_theme_mod($setting))->post_content);
+}
+
+/******************************************************************************
+ * GENERIC FILTERS
+ *****************************************************************************/
+function nav_menu_item_class_customization($classes, $item, $args, $depth) {
+	if($depth > 0 && isset($args->subitem_class)) {
+		$classes = array_merge($classes, preg_split('/\s+/',$args->subitem_class));
+	} else if(isset($args->item_class)) {
+		$classes = array_merge($classes, preg_split('/\s+/',$args->item_class));
+	}
+	return $classes;
+}
+add_filter('nav_menu_css_class', 'nav_menu_item_class_customization', 1, 4);
+
+function nav_menu_item_link_attribute_customization($attrs, $item, $args, $depth) {
+	if(!array_key_exists('aria-level', $attrs)) {
+		$attrs['aria-level'] = $depth;
+	}
+
+	if(isset($args->link_attrs)) {
+		$attrs = array_merge($attrs, $args->link_attrs);
+	}
+	if(isset($args->link_class)) {
+		if(array_key_exists('class', $attrs)) {
+			$attrs['class'] .= " " . $args->link_class;
+		} else {
+			$attrs['class'] = $args->link_class;
+		}
+	}
+    return $attrs;
+}
+add_filter('nav_menu_link_attributes',
+	'nav_menu_item_link_attribute_customization', 1, 4);
+
+
+function nav_menu_submenu_class_customization($classes, $args, $depth) {
+	if(isset($args->submenu_class)) {
+		$classes = array_merge($classes, preg_split('/\s+/',$args->submenu_class));
+	}
+	return $classes;
+}
+add_filter('nav_menu_submenu_css_class',
+	'nav_menu_submenu_class_customization', 10, 3);
+
+/******************************************************************************
+ * SCRIPTS
+ *****************************************************************************/
 
 add_action( 'wp_enqueue_scripts', 'load_theme_scripts', 999 );
 function load_theme_scripts() {
@@ -12,7 +68,9 @@ function load_theme_scripts() {
 
 }
 
-
+/******************************************************************************
+ * STYLES
+ *****************************************************************************/
 add_action( 'wp_enqueue_scripts', 'load_theme_styles', 999 );
 function load_theme_styles() {
 	wp_enqueue_style(
@@ -49,6 +107,9 @@ function load_theme_styles() {
 	);
 }
 
+/******************************************************************************
+ * SIDEBARS
+ *****************************************************************************/
 add_action('widgets_init', 'theme_widgets_init' );
 function theme_widgets_init() {
 	register_sidebar(
@@ -64,6 +125,9 @@ function theme_widgets_init() {
 	);
 }
 
+/******************************************************************************
+ * MENUS
+ *****************************************************************************/
 add_action('after_setup_theme', 'theme_init' );
 function theme_init() {
 		register_nav_menus(
@@ -74,6 +138,9 @@ function theme_init() {
 	);
 }
 
+/******************************************************************************
+ * THEME CUSTOMIZATION OPTIONS
+ *****************************************************************************/
 add_action('customize_register','theme_customization');
 function theme_customization($wp_customize) {
 	$wp_customize->add_section('home_page', array(
@@ -276,9 +343,3 @@ function theme_customization($wp_customize) {
 }
 
 
-
-
-function get_theme_mod_page_content($setting) {
-	return apply_filters('the_content',
-		get_page(get_theme_mod($setting))->post_content);
-}

@@ -70,10 +70,24 @@
 }
 
 
+body.grid {
+	/* Fixes an edge case where the repeat(auto-fill, ...) fails to add the
+	 * last column due to floating point rounding. */
+	grid-template-columns: repeat(var(--window-cols), @grid-width);
+}
+
+
 /*----------------------------------------------------------------------
  * DEVICE RULES
  *----------------------------------------------------------------------*/
 .device-rules(@device, @suffix...) {
+
+	body:before {
+		content: "@device";
+		display:none;
+		visibility: hidden;
+	}
+
 	/* OVERFLOW/ALIGN -------------------------------------------------*/
 	.clip@{suffix} {
 		overflow: clip;
@@ -96,6 +110,9 @@
 	}
 	.pre-line@{suffix} {
 		white-space: pre-line;
+	}
+	.right-to-left@{suffix}, .rtl@{suffix} {
+		direction: rtl;
 	}
 
 
@@ -252,6 +269,9 @@
 	.padding-none@{suffix} {
 		padding: 0;
 	}
+	.padding-remove@{suffix}-excess-line-height {
+		padding-top: calc(-1 * calc(var(--line-height) - var(--cap-height)));
+	}
 
 	.generate-paddings(@n, @i: 1) when (@i =< @n) {
 		.padding-top@{suffix}-@{i} {
@@ -283,6 +303,11 @@
 		.padding@{suffix}-@{i} {
 			padding: .grid-full-height(@i)[@ret] .grid-full-width(@i)[@ret];
 		}
+
+		.padding-left@{suffix}-to-aria-level[aria-level="@{i}"] {
+			padding-left: .grid-full-width(@i)[@ret];
+		}
+
 		.generate-paddings(@n, (@i + 1));
 	}
 	.generate-paddings(16);
@@ -322,6 +347,14 @@
 
 
 	/* TYPOGRAPHY -----------------------------------------------------*/
+	.text-decoration-none@{suffix}, .no-underline@{suffix} {
+		text-decoration: none;
+	}
+
+	.underline@{suffix} {
+		text-decoration: underline;
+	}
+
 	.generate-typography(@n, @i: 1) when (@i =< @n) {
 		.cap-height@{suffix}-@{i} {
 			--cap-height: .grid-height(@i)[@ret];
@@ -372,40 +405,39 @@
 		height: fit-content;
 	}
 
+
 	.generate-grid(@n, @i: 1) when (@i =< @n) {
-		.grid {
-			& > .row-span@{suffix}-@{i},
-			& > .rows-@{suffix}-@{i} {
-				grid-row: span @i / span @i;
-				max-height: .grid-height(@i)[@ret];
-			}
-			& > .col-span@{suffix}-@{i},
-			& > .cols@{suffix}-@{i} {
-				grid-column: span @i / span @i;
-			}
-			& > .row-start@{suffix}-@{i} {
-				grid-row-start: @i !important;
-			}
-			& > .col-start@{suffix}-@{i} {
-				grid-column-start: @i !important;
-			}
-			& > .row-pull@{suffix}-@{i} {
-				grid-row-end: -@i !important;
-			}
-			& > .col-pull@{suffix}-@{i} {
-				grid-column-end: -@i !important;
-			}
-			& > .row-fill@{suffix}-@{i} {
-				grid-row: @i / -1;
-			}
-			& > .col-fill@{suffix}-@{i} {
-				grid-column: @i / -1;
-			}
+		.row-span@{suffix}-@{i},
+		.rows-@{suffix}-@{i} {
+			grid-row: span @i / span @i;
+			max-height: .grid-height(@i)[@ret];
 		}
+		.col-span@{suffix}-@{i},
+		.cols@{suffix}-@{i} {
+			grid-column: span @i / span @i;
+		}
+		.row-start@{suffix}-@{i} {
+			grid-row-start: @i !important;
+		}
+		.col-start@{suffix}-@{i} {
+			grid-column-start: @i !important;
+		}
+		.row-pull@{suffix}-@{i} {
+			grid-row-end: -@i !important;
+		}
+		.col-pull@{suffix}-@{i} {
+			grid-column-end: -@i !important;
+		}
+		.row-fill@{suffix}-@{i} {
+			grid-row: @i / -1;
+		}
+		.col-fill@{suffix}-@{i} {
+			grid-column: @i / -1;
+		}
+
 		html.@{device}-@{i} {
-			--grid-cols: @i;
-			font-size: ((100vw / @i) + (100vw / @i) *
-				(@gutter-width-ratio / @i));
+			--window-cols: @i;
+			font-size: (100vw / @i) * (1 + (@gutter-width-ratio / @i));
 
 			.grid > .col-span@{suffix}-half {
 				grid-column: span (@i/2) / span (@i/2);
@@ -424,12 +456,55 @@
 		display: none;
 	}
 
+	.popup-accordion@{suffix}, .accordion@{suffix} {
+		display: none;
+
+		&[aria-selected="true"] {
+			display:block;
+		}
+	}
+
+	.popup-dropdown@{suffix}, .dropdown@{suffix} {
+		transform-origin: 0% 0%;
+		transform: scaleY(0);
+
+		position: absolute;
+		top: inherit;
+		z-index: 10000;
+
+		&[aria-selected="true"] {
+			transform: scaleY(100%);
+		}
+	}
+
+	.popup-open@{suffix} {
+		&.popup-dropdown@{suffix}, &.dropdown@{suffix} {
+			transform: scaleY(100%);
+		}
+		&.popup-accordion@{suffix}, &.accordion@{suffix} {
+			display:block;
+		}
+	}
+
+	.popup-slow@{suffix} {
+		transition: transform 0.5s;
+	}
+
+	.popup-fast@{suffix} {
+		transition: transform 0.1s;
+	}
+
+
 	/* POSITION --------------------------------------------------------*/
-	.sticky-top {
+	.sticky-top@{suffix} {
 		position: sticky;
 		top: 0;
-		z-index: 100;
 	}
+
+	.relative@{suffix}, .position-relative@{suffix} {
+		position: relative;
+	}
+
 }
 
 
@@ -448,5 +523,126 @@
 @media (orientation: portrait) {
 	.device-rules(portrait, -p);
 }
+
+/*----------------------------------------------------------------------
+ * COLORS
+ *----------------------------------------------------------------------*/
+
+.generate-empty-device-classes(@class) {
+	.@{class}-p {}
+}
+.generate-valid-device-classes(@class) {
+	@media (orientation: portrait) {
+		.@{class}-p {
+			&:extend(.@{class});
+		}
+	}
+}
+
+.generate-device-classes(@class) {
+}
+
+
+
+.make-color(@color) {
+	.bg-color-@{color}, .bg-@{color} {
+		background-color: @@color;
+	}
+	.bg-color-@{color}-hover, .bg-@{color}-hover {
+		transition: ease-in-out 0.2s;
+		&:hover {
+			background-color: @@color;
+		}
+	}
+	.color-@{color}, .font-color-@{color} {
+		color: @@color;
+	}
+	.font-glow-@{color} {
+		text-shadow: 0em 0em 0.25rem @@color;
+	}
+	.box-glow-@{color} {
+		box-shadow: 0px 0px 0.25rem @@color;
+	}
+	.font-shadow-@{color} {
+		text-shadow: 0.02em 0.02em 0rem @@color;
+	}
+	.box-shadow-@{color} {
+		box-shadow: 0.02em 0.02em 0rem @@color;
+	}
+	.border-@{color} {
+		border: 2px solid @@color;
+	}
+
+	.make-faded-color(@percent) {
+		.bg-color-@{color}-@{percent}, .bg-@{color}-@{percent} {
+			background-color: fade(@@color, @percent);
+		}
+		.bg-color-@{color}-@{percent}-hover, .bg-@{color}-@{percent}-hover {
+			transition: ease-in-out 0.2s;
+			&:hover {
+				background-color: fade(@@color, @percent);
+			}
+		}
+		.font-glow-@{color}-@{percent} {
+			text-shadow: 0px 0px 0.25rem fade(@@color, @percent);
+		}
+		.box-glow-@{color}-@{percent} {
+			box-shadow: 0px 0px 0.25rem fade(@@color, @percent);
+		}
+		.font-shadow-@{color}-@{percent} {
+			text-shadow: 0.02em 0.02em 0rem fade(@@color, @percent);
+		}
+		.box-shadow-@{color}-@{percent} {
+			box-shadow: 0.02em 0.02em 0rem fade(@@color, @percent);
+		}
+	}
+	.make-faded-color(75);
+	.make-faded-color(50);
+	.make-faded-color(25);
+}
+
+/*----------------------------------------------------------------------
+ * DEFAULTS & WORDPRESS OVERRIDES
+ *----------------------------------------------------------------------*/
+ul:not(.no-bullets) {
+	.padding-left-1;
+}
+
+.is-layout-flex, .wp-block-columns.is-layout-flex {
+	gap: @gutter-width;
+}
+
+.wp-block-buttons {
+	.margin-bottom-1;
+
+	& > .wp-block-button {
+		padding: unset;
+	}
+}
+
+figure.wp-block-image {
+	.margin-bottom-1;
+}
+
+.wp-block-columns {
+	.margin-bottom-1;
+}
+
+hr.wp-block-separator {
+	.margin-y-3;
+}
+
+article.page {
+	& > :is(h1, h2, h3, h4, h5, h6) {
+		.padding-bottom-1;
+	}
+
+}
+
+.widgets > aside {
+	.padding-bottom-1;
+}
+
+
 
 

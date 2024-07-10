@@ -26,64 +26,6 @@
 
 
 
-/* Theme Colors */
-
-.make-color(@color) {
-	.bg-color-@{color}, .bg-@{color} {
-		background-color: @@color;
-	}
-	.bg-color-@{color}-hover, .bg-@{color}-hover {
-		transition: ease-in-out 0.2s;
-		&:hover {
-			background-color: @@color;
-		}
-	}
-	.color-@{color}, .font-color-@{color} {
-		color: @@color;
-	}
-	.font-glow-@{color} {
-		text-shadow: 0em 0em 0.25rem @@color;
-	}
-	.box-glow-@{color} {
-		box-shadow: 0px 0px 0.25rem @@color;
-	}
-	.font-shadow-@{color} {
-		text-shadow: 0.02em 0.02em 0rem @@color;
-	}
-	.box-shadow-@{color} {
-		box-shadow: 0.02em 0.02em 0rem @@color;
-	}
-	.border-@{color} {
-		border: 2px solid @@color;
-	}
-
-	.make-faded-color(@percent) {
-		.bg-color-@{color}-@{percent}, .bg-@{color}-@{percent} {
-			background-color: fade(@@color, @percent);
-		}
-		.bg-color-@{color}-@{percent}-hover, .bg-@{color}-@{percent}-hover {
-			transition: ease-in-out 0.2s;
-			&:hover {
-				background-color: fade(@@color, @percent);
-			}
-		}
-		.font-glow-@{color}-@{percent} {
-			text-shadow: 0px 0px 0.25rem fade(@@color, @percent);
-		}
-		.box-glow-@{color}-@{percent} {
-			box-shadow: 0px 0px 0.25rem fade(@@color, @percent);
-		}
-		.font-shadow-@{color}-@{percent} {
-			text-shadow: 0.02em 0.02em 0rem fade(@@color, @percent);
-		}
-		.box-shadow-@{color}-@{percent} {
-			box-shadow: 0.02em 0.02em 0rem fade(@@color, @percent);
-		}
-	}
-	.make-faded-color(75);
-	.make-faded-color(50);
-	.make-faded-color(25);
-}
 
 @black: #212121;
 @rose-pink: #9e6f6d;
@@ -116,6 +58,16 @@
 		.grid-height(@cap-height-rows)[@ret]);
 }
 
+
+
+body {
+	background: linear-gradient(
+		to bottom,
+		@light-beige,
+		@light-beige calc(var(--body-height) - @grid-full-height),
+		@dark-green calc(var(--body-height) - @grid-full-height),
+		@dark-green);
+}
 
 
 h1, .title {
@@ -169,11 +121,8 @@ h6, .tagline {
 	.padding-bottom-1;
 }
 
-article.page > :is(h1, h2, h3, h4, h5, h6) {
-	.padding-bottom-2;
-}
 
-p, ul > li, cite {
+p, ul:not(.sub-menu) > li, cite {
 	.secondary-font(2, 1);
 	@media (orientation: portrait) {
 		.secondary-font(3, 2);
@@ -181,99 +130,67 @@ p, ul > li, cite {
 	.font-color-grey;
 	.font-weight-300;
 	letter-spacing: -0.03em;
+
+	a:hover {
+		.font-color-black;
+	}
 }
 
 p, ul {
 	.padding-bottom-1;
 }
 
-ul {
-	.padding-left-1;
-}
-
-button, .wp-block-button, #menu-top-navbar > li {
-	transition: ease-in-out 0.2s;
-	.bg-color-beige;
-	.font-color-darker-rose;
-
-
-	.wp-element-button, .wp-block-button__link {
-		background-color: unset;
-		display: block;
-		.padding-1;
-	}
-
-	span, a {
-		.default-font(1, 1);
-		@media (orientation: portrait) {
-			.default-font(2, 2);
-		}
-		.font-color-grey;
-		text-decoration: none;
-	}
-
-	&:hover {
-		.bg-color-camel;
-	}
-
-	&.dark {
-		.bg-color-dark-green;
-		span, a {
-			.color-light-beige;
-		}
-
-		&:hover {
-		}
-	}
-}
-
-#menu-top-navbar > li {
-	grid-column: span 3 / span 3;
-	a {
-		display:block;
-		.padding-y-1;
-		.center;
-		.full-width;
-	}
-}
-
-.wp-block-buttons {
-	.margin-top-2;
-
-	& > .wp-block-button {
-		padding: unset;
-	}
-}
 
 a {
-	.secondary-font(1, 1);
+    text-decoration: underline;
+	color: inherit;
+}
+
+a.button, .wp-block-button a {
+	display:block;
+	position: relative;
+	transition: ease-in-out 0.2s;
+	.bg-color-beige;
 	.font-color-grey;
-	.font-weight-300;
-	letter-spacing: -0.03em;
+	text-decoration: none;
+	.padding-y-1;
+	border-radius: 0;
 
-	&:hover {
-		.font-color-black;
+	span {
+		.default-font(2, 1);
+		@media (orientation: portrait) {
+			.default-font(3, 2);
+		}
+		.margin-remove-excess-line-height;
+		display: block;
+	}
+
+	&:hover, &:target, &:active, &[aria-expanded="true"] {
+		.bg-color-camel;
+	}
+	&.dark {
+		.bg-color-dark-green;
+		& > a {
+			.color-light-beige;
+		}
 	}
 }
 
-figure.wp-block-image {
-	.margin-y-1;
-}
 
-.is-layout-flex {
-	gap: @gutter-width;
-}
+menu :is(ul.sub-menu, .sub-menu) {
 
-.wp-block-columns  {
-	.margin-y-2;
-
-	&.is-layout-flex {
-		gap: @gutter-width;
+	.sub-menu {
+		top: 0;
+		left: (-1 * .grid-width(5)[@ret]);
 	}
+
 }
 
 
 
+/*----------------------------------------------------------------------
+ * FOOTER
+ *----------------------------------------------------------------------*/
 footer.bg-color-dark-green  {
 	a, p, h6, li {
 		.color-light-beige;
@@ -284,21 +201,24 @@ footer.bg-color-dark-green  {
 	}
 }
 
+/*----------------------------------------------------------------------
+ * BLOCK STYLING
+ *----------------------------------------------------------------------*/
 *[data-tag]::before {
 	.default-font(4, 4);
 	.font-color-grey;
 	.font-weight-900;
 }
 
-article.page > :is(hr, .wp-block-separator) {
-	.margin-y-2;
+
+strong, b {
+	font-weight: 500;
+}
+
+hr {
 	.margin-x-2;
 	border: none;
 	border-top: 1px dashed @black;
-}
-
-.widgets > aside {
-	.padding-bottom-1;
 }
 
 
