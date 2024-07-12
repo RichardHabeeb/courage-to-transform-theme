@@ -43,6 +43,11 @@
 					"slug": "lead-black"
 				},
 				{
+					"color": "#fbf8f1",
+					"name": "Off White",
+					"slug": "off-white"
+				},
+				{
 					"color": "#9e6f6d",
 					"name": "Rose Pink",
 					"slug": "rose-pink"

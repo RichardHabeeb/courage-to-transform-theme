@@ -28,6 +28,7 @@
 
 
 @black: #212121;
+@off-white: #fbf8f1;
 @rose-pink: #9e6f6d;
 @dark-green: #004038;
 @beige: #e8d9c0;
@@ -37,6 +38,7 @@
 @camel: #b99b69;
 
 .make-color(black);
+.make-color(off-white);
 .make-color(rose-pink);
 .make-color(dark-green);
 .make-color(beige);
@@ -47,7 +49,7 @@
 
 
 .default-font(@line-height-rows: 1, @cap-height-rows: 1) {
-	.playfair-display(
+	.libre-franklin(
 		.grid-full-height(@line-height-rows)[@ret],
 		.grid-height(@cap-height-rows)[@ret]);
 }
@@ -63,8 +65,8 @@
 body {
 	background: linear-gradient(
 		to bottom,
-		@light-beige,
-		@light-beige calc(var(--body-height) - @grid-full-height),
+		@off-white,
+		@off-white calc(var(--body-height) - @grid-full-height),
 		@dark-green calc(var(--body-height) - @grid-full-height),
 		@dark-green);
 }
@@ -146,6 +148,14 @@ a {
 	color: inherit;
 }
 
+.dark a, a.dark {
+	.color-light-beige;
+
+	&:hover {
+		.color-camel;
+	}
+}
+
 a.button, .wp-block-button a {
 	display:block;
 	position: relative;
@@ -170,7 +180,7 @@ a.button, .wp-block-button a {
 	}
 	&.dark {
 		.bg-color-dark-green;
-		& > a {
+		& > span {
 			.color-light-beige;
 		}
 	}

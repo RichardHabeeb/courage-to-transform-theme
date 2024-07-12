@@ -123,6 +123,28 @@ function theme_widgets_init() {
 			'after_title'   => '</h6>',
 		)
 	);
+	register_sidebar(
+		array(
+			'name'          => __('Footer Left', 'text-domain'),
+			'id'            => 'footer-1',
+			'description'   => __('Footer Left Column', 'text-domain'),
+			'before_widget' => '<aside id="%1$s" class="col-span-full row-span-auto %2$s">',
+			'after_widget'  => '</aside>',
+			'before_title'  => '<h5 class="widget-title">',
+			'after_title'   => '</h5>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => __('Footer Right', 'text-domain'),
+			'id'            => 'footer-2',
+			'description'   => __('Footer Right Column', 'text-domain'),
+			'before_widget' => '<aside id="%1$s" class="col-span-full row-span-auto %2$s">',
+			'after_widget'  => '</aside>',
+			'before_title'  => '<h5 class="widget-title">',
+			'after_title'   => '</h5>',
+		)
+	);
 }
 
 /******************************************************************************
@@ -130,12 +152,12 @@ function theme_widgets_init() {
  *****************************************************************************/
 add_action('after_setup_theme', 'theme_init' );
 function theme_init() {
-		register_nav_menus(
+	register_nav_menus(
 		array(
 			'primary'   => __('Top primary menu', 'text-domain'),
-			'secondary' => __('Secondary menu in left sidebar', 'text-domain'),
 		)
 	);
+	add_theme_support('post-thumbnails');
 }
 
 /******************************************************************************

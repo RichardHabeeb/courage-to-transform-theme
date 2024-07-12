@@ -92,18 +92,18 @@
 
 <div class="col-span-full row-span-auto grid bg-color-darker-rose padding-bottom-5">
 	<div class="col-fill-l-2 col-fill-p-1 row-span-10">
-		<h2 class="font-color-beige font-shadow-grey-25 line-height-8" data-z-index="100">Inspiring Change...</h2>
+		<h2 class="font-color-off-white font-shadow-grey-25 line-height-8" data-z-index="100">Inspiring Change...</h2>
 	</div>
 	<div class="col-fill-2 row-start-11 grid">
-		<div class="cols-8 cols-p-10 row-span-auto bg-color-light-beige padding-1" data-tag='&#8220;'>
+		<div class="cols-8 cols-p-10 row-span-auto bg-color-off-white padding-1" data-tag='&#8220;'>
 			<?= get_theme_mod_page_content('home_quote_page_0') ?>
 
 		</div>
-		<div class="cols-8 cols-p-10 row-span-auto bg-color-light-beige padding-1 margin-top-p-1" data-tag='&#8220;'>
+		<div class="cols-8 cols-p-10 row-span-auto bg-color-off-white padding-1 margin-top-p-1" data-tag='&#8220;'>
 			<?= get_theme_mod_page_content('home_quote_page_1') ?>
 
 		</div>
-		<div class="cols-8 cols-p-10 row-span-auto bg-color-light-beige padding-1 margin-top-p-1" data-tag='&#8220;'>
+		<div class="cols-8 cols-p-10 row-span-auto bg-color-off-white padding-1 margin-top-p-1" data-tag='&#8220;'>
 			<?= get_theme_mod_page_content('home_quote_page_2') ?>
 
 		</div>
@@ -127,39 +127,46 @@
 <div class="col-span-full row-span-auto bg-color-dark-green flex-center flex-v-center padding-y-3">
 	<div class="center">
 		<h4 class="color-light-beige">Book My Discovery Call Today</h4>
-		<p class="color-light-beige">1 800 555 5555</p>
+		<a
+				class="button center"
+				href="<?= get_permalink(get_theme_mod('home_tagline_button_link')); ?>">
+			Get Started on Your Transformation
+
+		</a>
 	</div>
 </div>
 
+<?php
+$latestPosts = wp_get_recent_posts(['numberposts' => 2], OBJECT);
+if($latestPosts): ?>
 <div class="col-span-full col-start-l-2 row-span-9">
 	<h2 class="font-color-grey padding-top-5">From the blog...</h2>
 </div>
 
 <div class="col-fill-2 col-pull-2 row-span-auto padding-bottom-5 grid">
-	<div class="col-span-12 row-span-25" data-bg-image="https://i0.wp.com/couragetotransform.com/wp-content/uploads/2024/02/angry-cry.png?w=1640&ssl=1">
+
+	<?php foreach ($latestPosts as $post): ?>
+
+	<div class="col-span-12 row-span-25" data-bg-image="<?= esc_url(get_the_post_thumbnail_url($post->ID)); ?>">
 		<a
 				class="bg-color-black-50 bg-color-black-75-hover full-height padding-x-1 flex-bottom no-underline"
-				href="#article1">
+				href="<?= get_permalink($post->ID); ?>">
 			<div>
 				<h5>
-					Why Do I Cry When I’m Angry? A Five Element and Physiological Understanding Behind Angry Tears
+					<?= get_the_title($post->ID); ?>
 				</h5>
-				<p class="line-height-1 cap-height-1 font-color-light-beige"><i>1/1/2024</i></p>
+				<p class="line-height-1 cap-height-1 font-color-light-beige">
+					<i>
+						<?= get_the_date('F dS, Y', $post->ID); ?>
+
+					</i>
+				</p>
 			</div>
 		</a>
 	</div>
-	<div class="col-span-12 row-span-25" data-bg-image="https://i0.wp.com/couragetotransform.com/wp-content/uploads/2024/02/taking-a-chance-on-yourself.png?w=1640&ssl=1">
-		<a
-				class="bg-color-black-50 bg-color-black-75-hover full-height padding-x-1 flex-bottom no-underline"
-				href="#article1">
-			<div>
-				<h5>
-					Embracing Uncertainty: Letting Go to Step Forward, and Recognizing Manipulation
-				</h5>
-				<p class="line-height-1 cap-height-1 font-color-light-beige"><i>1/1/2024</i></p>
-			</div>
-		</a>
-	</div>
+	<?php endforeach; ?>
+
 </div>
+<?php endif; ?>
 
 <?php get_footer(); ?>

@@ -22,7 +22,7 @@
 		class=" col-span-full
 				row-start-1 row-span-5
 				sticky-top
-				bg-color-light-beige box-glow-grey
+				bg-color-off-white box-glow-grey
 				grid grid-fixed"
 		data-z-index="10000">
 	<div
@@ -43,7 +43,7 @@
 						padding-none color-darker-rose">
 			<a
 					aria-haspopup="menu"
-					aria-controls="menu-top-navbar"
+					aria-controls="menu-top-navbar">
 				<i class="bi bi-list"></i>
 			</a>
 		</p>
