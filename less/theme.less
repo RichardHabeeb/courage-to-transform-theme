@@ -148,13 +148,6 @@ a {
 	color: inherit;
 }
 
-.dark a, a.dark {
-	.color-light-beige;
-
-	&:hover {
-		.color-camel;
-	}
-}
 
 a.button, .wp-block-button a {
 	display:block;
@@ -178,14 +171,15 @@ a.button, .wp-block-button a {
 	&:hover, &:target, &:active, &[aria-expanded="true"] {
 		.bg-color-camel;
 	}
-	&.dark {
-		.bg-color-dark-green;
-		& > span {
-			.color-light-beige;
-		}
-	}
 }
 
+.wp-block-button.dark a, a.dark {
+	.bg-color-dark-green;
+	.color-light-beige;
+	&:hover, &:target, &:active, &[aria-expanded="true"] {
+		.color-camel;
+	}
+}
 
 menu :is(ul.sub-menu, .sub-menu) {
 
@@ -225,8 +219,8 @@ strong, b {
 	font-weight: 500;
 }
 
-hr {
-	.margin-x-2;
+hr, hr.wp-block-separator {
+	.margin-x-1;
 	border: none;
 	border-top: 1px dashed @black;
 }

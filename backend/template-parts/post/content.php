@@ -1,6 +1,6 @@
 
 <article
-		<?php post_class("col-fill-l-8 col-fill-p-2 col-pull-2 row-span-auto padding-bottom-5"); ?>
+		<?php post_class("col-fill-l-8 col-pull-l-2 col-span-p-full row-span-auto padding-bottom-5"); ?>
 		id="post-<?php the_ID(); ?>">
 
 

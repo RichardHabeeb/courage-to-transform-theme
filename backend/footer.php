@@ -1,5 +1,5 @@
 
-<footer class="col-span-full row-span-l-30 row-span-p-60 grid grid-fixed bg-color-dark-green clip">
+<footer class="col-span-full row-span-auto grid grid-fixed bg-color-dark-green clip">
 	<div class="col-span-full row-span-5"></div>
 	<div class="col-fill-2 col-pull-2 row-span-auto grid grid fixed">
 		<div class="col-span-l-10 col-span-p-5 row-span-auto grid">
