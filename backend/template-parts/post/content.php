@@ -6,9 +6,11 @@
 
 	<div class="height-24 flex-bottom" data-bg-image="<?= get_the_post_thumbnail_url() ?>">
 		<div class="padding-1 full-width backdrop-blur">
-			<h2 class="font-color-off-white blend-difference font-weight-300">
-				<?php the_title(); ?>
-			</h2>
+			<a class="no-underline" href="<?php the_permalink(); ?>">
+				<h2 class="font-color-off-white blend-difference font-weight-300">
+					<?php the_title(); ?>
+				</h2>
+			</a>
 			<p class="font-color-off-white blend-difference font-weight-300">
 				By&nbsp;
 				<a href="<?= get_author_posts_url(get_the_author_meta('ID')) ?>">

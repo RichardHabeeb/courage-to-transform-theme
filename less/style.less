@@ -355,6 +355,10 @@ body.grid {
 		}
 		.width@{suffix}-@{i} {
 			width: .grid-width(@i)[@ret];
+
+			&.grid {
+				grid-template-columns: repeat(@i, @grid-width);
+			}
 		}
 		.generate-sizes(@n, (@i + 1));
 	}
@@ -386,6 +390,9 @@ body.grid {
 	.generate-font-weights(@n, @i: 100) when (@i =< @n) {
 		.font-weight@{suffix}-@{i} {
 			font-weight: @i;
+		}
+		.font-weight-important@{suffix}-@{i} {
+			font-weight: @i !important;
 		}
 		.generate-font-weights(@n, (@i + 100));
 	}
@@ -560,6 +567,10 @@ body.grid {
 
 
 .make-color(@color) {
+	:root {
+		--@{color}: @@color;
+	}
+
 	.bg-color-@{color}, .bg-@{color} {
 		background-color: @@color;
 	}
@@ -643,9 +654,6 @@ figure.wp-block-image {
 	.margin-bottom-1;
 }
 
-hr.wp-block-separator {
-	.margin-y-3;
-}
 
 article.page {
 	& > :is(h1, h2, h3, h4, h5, h6) {

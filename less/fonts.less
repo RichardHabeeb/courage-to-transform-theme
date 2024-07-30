@@ -1,6 +1,6 @@
 
 
-.baseline-font(@line-height, @cap-height, @descender-ratio, @cap-height-ratio, @left-adjust-ratio: 0) {
+#baseline-font(@line-height, @cap-height, @descender-ratio, @cap-height-ratio, @left-adjust-ratio: 0) {
 	--line-height: @line-height;
 	--cap-height: @cap-height;
 	--descender-ratio: @descender-ratio;
@@ -14,16 +14,20 @@
 
 
 
-
 .libre-franklin(@line-height, @cap-height) {
-	@descender-ratio: calc(140 / 1000);
-	@cap-height-ratio: calc(740 / 1000);
+	@descender-ratio: (140.0 / 1000.0);
+	@cap-height-ratio: (740.0 / 1000.0);
 	@left-adjust-ratio: -0.03;
+
 
 	font-family: "Libre Franklin", sans-serif;
 	font-optical-sizing: auto;
-	.baseline-font(@line-height, @cap-height, @descender-ratio,
-		@cap-height-ratio, @left-adjust-ratio);
+	#baseline-font(
+		@line-height,
+		@cap-height,
+		@descender-ratio,
+		@cap-height-ratio,
+		@left-adjust-ratio);
 }
 
 .playfair-display(@line-height, @cap-height) {
@@ -33,7 +37,7 @@
 
 	font-family: "Playfair Display", serif;
 	font-optical-sizing: auto;
-	.baseline-font(@line-height, @cap-height, @descender-ratio,
+	#baseline-font(@line-height, @cap-height, @descender-ratio,
 		@cap-height-ratio, @left-adjust-ratio);
 }
 

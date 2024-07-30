@@ -62,13 +62,13 @@
 
 
 
-body {
-	background: linear-gradient(
+html {
+	background: no-repeat linear-gradient(
 		to bottom,
 		@off-white,
-		@off-white calc(var(--body-height) - @grid-full-height),
-		@dark-green calc(var(--body-height) - @grid-full-height),
-		@dark-green);
+		@off-white calc(var(--body-height) - (10 * @grid-full-height)),
+		@darker-rose calc(var(--body-height) - (10 * @grid-full-height)),
+		@darker-rose);
 }
 
 
@@ -86,7 +86,7 @@ h2, .section-title-large {
 	letter-spacing: -0.03em;
 }
 
-h3, .section-title-medium, article.page > h2 {
+h3, .section-title-medium, :where(article.page) > h2 {
 	.default-font(4, 3);
 	.font-color-black;
 	.font-weight-100;
@@ -124,7 +124,7 @@ h6, .tagline {
 }
 
 
-p, ul:not(.sub-menu) > li, cite {
+p, ul:not(.sub-menu, .ab-top-menu) > li, cite {
 	.secondary-font(2, 1);
 	@media (orientation: portrait) {
 		.secondary-font(3, 2);
@@ -144,7 +144,7 @@ p, ul {
 
 
 a {
-    text-decoration: underline;
+	text-decoration: underline;
 	color: inherit;
 }
 
@@ -195,7 +195,7 @@ menu :is(ul.sub-menu, .sub-menu) {
 /*----------------------------------------------------------------------
  * FOOTER
  *----------------------------------------------------------------------*/
-footer.bg-color-dark-green  {
+footer.bg-color-dark-green, footer.bg-color-darker-rose  {
 	a, p, h6, li {
 		.color-light-beige;
 	}
@@ -221,9 +221,14 @@ strong, b {
 
 hr, hr.wp-block-separator {
 	.margin-x-1;
+	.margin-top-2;
+	.margin-bottom-1;
 	border: none;
-	border-top: 1px dashed @black;
+	border-top: 1px solid @darker-rose;
+	height: calc(@grid-full-height - 1px);
 }
-
-
+.widgets > aside > hr {
+	.margin-top-1;
+	margin-bottom: 0;
+}
 

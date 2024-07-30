@@ -1,4 +1,4 @@
-<?php get_header(); get_sidebar(); ?>
+<?php get_header(); ?>
 
 <?php
 while (have_posts()):
