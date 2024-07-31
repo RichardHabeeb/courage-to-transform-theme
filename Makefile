@@ -14,21 +14,21 @@ $(build)/style.css: less/style.less $(node_modules) $(build) less/*.less
 	@npm run --silent cleancss -- -O2 $@.max.css > $@
 
 
-theme:=$(build)/theme.zip
-$(theme): $(build)/style.css $(build)
+theme:=courage-to-transform.zip
+$(build)/$(theme): $(build)/style.css $(build)
 	@rm -f $@
 	@echo "[ZIP] style.css"
-	@cd $(build) && zip -v theme.zip style.css
+	@cd $(build) && zip -v $(theme) style.css
 	@echo "[ZIP] assets"
-	@zip -urv $(build)/theme assets
+	@zip -urv $(build)/$(theme) assets
 	@echo "[ZIP] backend"
-	@cd backend && zip -urv ../$(build)/theme *
-	@zip -uv $(build)/theme theme.json *
+	@cd backend && zip -urv ../$(build)/$(theme) *
+	@zip -uv $(build)/$(theme) theme.json *
 
 
 
 clean:
 	@rm -rf node_modules build $(theme)
 
-all: $(theme)
+all: $(build)/$(theme)
 .PHONY: all
