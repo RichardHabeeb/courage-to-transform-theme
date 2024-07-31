@@ -1,6 +1,5 @@
 @import "fonts.less";
 
-
 /* If you want the minimum font-size to be 10px, then set
  * @grid-full-height = 10px / (320 / columns)
  *
@@ -23,8 +22,8 @@
 @grid-width:  (@grid-full-width  - @gutter-width);
 @grid-height: (@grid-full-height - @gutter-height);
 
-
-
+@default-cap-height-rows: 1;
+@default-line-height-rows: 2;
 
 
 @black: #212121;
@@ -48,19 +47,6 @@
 .make-color(camel);
 
 
-.default-font(@line-height-rows: 1, @cap-height-rows: 1) {
-	.libre-franklin(
-		.grid-full-height(@line-height-rows)[@ret],
-		.grid-height(@cap-height-rows)[@ret]);
-}
-
-.secondary-font(@line-height-rows: 1, @cap-height-rows: 1) {
-	.libre-franklin(
-		.grid-full-height(@line-height-rows)[@ret],
-		.grid-height(@cap-height-rows)[@ret]);
-}
-
-
 
 html {
 	background: no-repeat linear-gradient(
@@ -73,30 +59,38 @@ html {
 
 
 h1, .title {
-	.default-font(2, 2);
+	&:extend(.libre-franklin);
+	.cap-height-2;
 	.font-color-darker-rose;
 	.font-weight-100;
 	letter-spacing: -0.03em;
 }
 
 h2, .section-title-large {
-	.default-font(4, 4);
+	&:extend(.libre-franklin);
+	.cap-height-4;
+	.line-height-4;
 	.font-color-black;
 	.font-weight-100;
 	letter-spacing: -0.03em;
 }
 
 h3, .section-title-medium, :where(article.page) > h2 {
-	.default-font(4, 3);
+	&:extend(.libre-franklin);
+	.line-height-4;
+	.cap-height-3;
 	.font-color-black;
 	.font-weight-100;
 	letter-spacing: -0.03em;
 }
 
 h4, .section-title-small, article.page > h3 {
-	.default-font(3, 2);
-	@media (orientation: portrait) {
-		.default-font(4, 3);
+	&:extend(.libre-franklin);
+	.line-height-3;
+	.cap-height-2;
+	@media @portrait {
+		.line-height-4;
+		.cap-height-3;
 	}
 	.font-color-black;
 	.font-weight-100;
@@ -105,7 +99,9 @@ h4, .section-title-small, article.page > h3 {
 }
 
 h5, .tile-title {
-	.secondary-font(3, 2);
+	&:extend(.libre-franklin);
+	.line-height-3;
+	.cap-height-2;
 	.font-color-light-beige;
 	.font-shadow-black-25;
 	.font-weight-300;
@@ -113,9 +109,12 @@ h5, .tile-title {
 }
 
 h6, .tagline {
-	.default-font(1, 1);
-	@media (orientation: portrait) {
-		.default-font(3, 2);
+	&:extend(.libre-franklin);
+	.cap-height-1;
+	.line-height-1;
+	@media @portrait {
+		.cap-height-2;
+		.line-height-3;
 	}
 	.font-color-black;
 	.font-weight-100;
@@ -125,9 +124,10 @@ h6, .tagline {
 
 
 p, ul:not(.sub-menu, .ab-top-menu) > li, cite {
-	.secondary-font(2, 1);
-	@media (orientation: portrait) {
-		.secondary-font(3, 2);
+	&:extend(.libre-franklin);
+	@media @portrait {
+		.cap-height-2;
+		.line-height-3;
 	}
 	.font-color-grey;
 	.font-weight-300;
@@ -160,9 +160,10 @@ a.button, .wp-block-button a {
 	border-radius: 0;
 
 	span {
-		.default-font(2, 1);
-		@media (orientation: portrait) {
-			.default-font(3, 2);
+		&:extend(.libre-franklin);
+		@media @portrait {
+			.cap-height-2;
+			.line-height-3;
 		}
 		.margin-remove-excess-line-height;
 		display: block;
@@ -209,7 +210,9 @@ footer.bg-color-dark-green, footer.bg-color-darker-rose  {
  * BLOCK STYLING
  *----------------------------------------------------------------------*/
 *[data-tag]::before {
-	.default-font(4, 4);
+	&:extend(.libre-franklin);
+	.cap-height-4;
+	.line-height-4;
 	.font-color-grey;
 	.font-weight-900;
 }
@@ -224,8 +227,10 @@ hr, hr.wp-block-separator {
 	.margin-top-2;
 	.margin-bottom-1;
 	border: none;
-	border-top: 1px solid @darker-rose;
-	height: calc(@grid-full-height - 1px);
+	@border-size: 3px;
+	border-top: @border-size solid @darker-rose;
+	border-radius: @border-size;
+	height: calc(@grid-full-height - @border-size);
 }
 .widgets > aside > hr {
 	.margin-top-1;

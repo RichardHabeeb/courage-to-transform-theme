@@ -1,44 +1,42 @@
 
+:root {
+	--line-height: .grid-full-height(@default-line-height-rows)[@ret];
+	--cap-height: .grid-height(@default-cap-height-rows)[@ret];
+}
 
-#baseline-font(@line-height, @cap-height, @descender-ratio, @cap-height-ratio, @left-adjust-ratio: 0) {
-	--line-height: @line-height;
-	--cap-height: @cap-height;
-	--descender-ratio: @descender-ratio;
-	--cap-height-ratio: @cap-height-ratio;
-	--left-adjust-ratio: @left-adjust-ratio;
-	--font-size: calc(var(--cap-height) / var(--cap-height-ratio));
+.baseline-font(@descender-ratio, @cap-height-ratio, @left-adjust-ratio: 0) {
+	--font-size: calc(var(--cap-height) / @cap-height-ratio);
 	line-height: var(--line-height);
 	font-size: var(--font-size);
-	transform: translateY(calc((var(--line-height) - var(--font-size))/2 - var(--gutter-height) + var(--font-size) * var(--descender-ratio))) translateX(calc(var(--font-size) * var(--left-adjust-ratio)));
+	transform: translateY(calc((var(--line-height) - var(--font-size))/2 - var(--gutter-height) + var(--font-size) * @descender-ratio)) translateX(calc(var(--font-size) * @left-adjust-ratio));
 }
 
 
-
-.libre-franklin(@line-height, @cap-height) {
-	@descender-ratio: (140.0 / 1000.0);
-	@cap-height-ratio: (740.0 / 1000.0);
-	@left-adjust-ratio: -0.03;
-
-
+:root {
+	--libre-franklin-descender-ratio: calc(140.0 / 1000.0);
+	--libre-franklin-cap-height-ratio: calc(760.0 / 1000.0);
+	--libre-franklin-left-adjust-ratio: -0.03;
+}
+.libre-franklin {
 	font-family: "Libre Franklin", sans-serif;
 	font-optical-sizing: auto;
-	#baseline-font(
-		@line-height,
-		@cap-height,
-		@descender-ratio,
-		@cap-height-ratio,
-		@left-adjust-ratio);
+	.baseline-font(
+		var(--libre-franklin-descender-ratio),
+		var(--libre-franklin-cap-height-ratio),
+		var(--libre-franklin-left-adjust-ratio));
 }
 
-.playfair-display(@line-height, @cap-height) {
-	@descender-ratio: calc(86 / 1000);
-	@cap-height-ratio: calc(705 / 1000);
-	@left-adjust-ratio: -0.02;
-
+:root {
+	--playfair-display-descender-ratio: calc(86.0 / 1000.0);
+	--playfair-display-cap-height-ratio: calc(705.0 / 1000.0);
+	--playfair-display-left-adjust-ratio: -0.02;
+}
+.playfair-display {
 	font-family: "Playfair Display", serif;
 	font-optical-sizing: auto;
-	#baseline-font(@line-height, @cap-height, @descender-ratio,
-		@cap-height-ratio, @left-adjust-ratio);
+	.baseline-font(
+		var(--playfair-display-descender-ratio),
+		var(--playfair-display-cap-height-ratio),
+		var(--playfair-display-left-adjust-ratio));
 }
-
 

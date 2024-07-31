@@ -257,7 +257,7 @@ body.grid {
 			margin-bottom: -.grid-full-height(@i)[@ret];
 		}
 
-		.margin-remove-@{suffix}-@{i} {
+		.margin-remove@{suffix}-@{i} {
 			margin: -.grid-full-height(@i)[@ret] -.grid-full-width(@i)[@ret];
 		}
 		.generate-margins(@n, (@i + 1));
@@ -532,37 +532,26 @@ body.grid {
 
 .device-rules(default);
 
-/*----------------------------------------------------------------------
- * LANDSCAPE
- *----------------------------------------------------------------------*/
-@media (orientation: landscape) {
-	.device-rules(landscape, -l);
-}
 
 /*----------------------------------------------------------------------
- * PORTRAIT
+ * DEVICES
  *----------------------------------------------------------------------*/
-@media (orientation: portrait) {
+//@landscape: ~"(orientation: landscape)";
+//@portrait: ~"(orientation: portrait)";
+@landscape: ~"(960px <= width)";
+@portrait: ~"(width < 960px)";
+
+@media @landscape {
+	.device-rules(landscape, -l);
+}
+@media @portrait {
 	.device-rules(portrait, -p);
 }
+
 
 /*----------------------------------------------------------------------
  * COLORS
  *----------------------------------------------------------------------*/
-
-.generate-empty-device-classes(@class) {
-	.@{class}-p {}
-}
-.generate-valid-device-classes(@class) {
-	@media (orientation: portrait) {
-		.@{class}-p {
-			&:extend(.@{class});
-		}
-	}
-}
-
-.generate-device-classes(@class) {
-}
 
 
 
