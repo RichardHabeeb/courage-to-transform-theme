@@ -122,69 +122,68 @@ body.grid {
 	}
 
 	/* FLEX ----------------------------------------------------------*/
-	.flex@{suffix} {
+	.flex@{suffix},
+	.flex-center@{suffix},
+	.flex-left@{suffix},
+	.flex-right@{suffix},
+	.flex-v-center@{suffix},
+	.flex-top@{suffix},
+	.flex-bottom@{suffix},
+	.flex-column@{suffix}
+	{
 		display: flex;
 	}
 
 	.flex-center@{suffix} {
-		.flex;
 		justify-content: center;
 	}
 
 	.flex-left@{suffix} {
-		.flex;
 		justify-content: left;
 	}
 
 	.flex-right@{suffix} {
-		.flex;
 		justify-content: end;
 	}
 
 	.flex-v-center@{suffix} {
-		.flex;
 		align-items: center;
 	}
 
 	.flex-top@{suffix} {
-		.flex;
 		align-items: baseline;
 	}
 
 	.flex-bottom@{suffix} {
-		.flex;
 		align-items: end;
 	}
 
 	.flex-column@{suffix} {
-		.flex;
 		flex-direction: column;
 	}
 
 	/* MARGIN ---------------------------------------------------------*/
-	.margin-remove-left@{suffix}-gutter {
+	.margin-remove-left@{suffix}-gutter,
+	.margin-remove-x@{suffix}-gutter
+	{
 		margin-left: -@gutter-width;
 	}
 
-	.margin-remove-right@{suffix}-gutter {
+	.margin-remove-right@{suffix}-gutter,
+	.margin-remove-x@{suffix}-gutter
+	{
 		margin-right: -@gutter-width;
 	}
 
-	.margin-remove-top@{suffix}-gutter {
+	.margin-remove-top@{suffix}-gutter,
+	.margin-remove-y@{suffix}-gutter
+	{
 		margin-top: -@gutter-height;
 	}
 
-	.margin-remove-bottom@{suffix}-gutter {
-		margin-bottom: -@gutter-height;
-	}
-
-	.margin-remove-x@{suffix}-gutter {
-		margin-left: -@gutter-width;
-		margin-right: -@gutter-width;
-	}
-
-	.margin-remove-y@{suffix}-gutter {
-		margin-top: -@gutter-height;
+	.margin-remove-bottom@{suffix}-gutter,
+	.margin-remove-y@{suffix}-gutter
+	{
 		margin-bottom: -@gutter-height;
 	}
 
@@ -201,30 +200,28 @@ body.grid {
 	}
 
 	.generate-margins(@n, @i: 1) when (@i =< @n) {
-		.margin-top@{suffix}-@{i} {
+		.margin-top@{suffix}-@{i},
+		.margin-y@{suffix}-@{i}
+		{
 			margin-top: .grid-full-height(@i)[@ret];
 		}
 
-		.margin-bottom@{suffix}-@{i} {
+		.margin-bottom@{suffix}-@{i},
+		.margin-y@{suffix}-@{i}
+		{
 			margin-bottom: .grid-full-height(@i)[@ret];
 		}
 
-		.margin-left@{suffix}-@{i} {
+		.margin-left@{suffix}-@{i},
+		.margin-x@{suffix}-@{i}
+		{
 			margin-left: .grid-full-width(@i)[@ret];
 		}
 
-		.margin-right@{suffix}-@{i} {
+		.margin-right@{suffix}-@{i},
+		.margin-x@{suffix}-@{i}
+		{
 			margin-right: .grid-full-width(@i)[@ret];
-		}
-
-		.margin-x@{suffix}-@{i} {
-			margin-left: .grid-full-width(@i)[@ret];
-			margin-right: .grid-full-width(@i)[@ret];
-		}
-
-		.margin-y@{suffix}-@{i} {
-			margin-top: .grid-full-height(@i)[@ret];
-			margin-bottom: .grid-full-height(@i)[@ret];
 		}
 
 		.margin@{suffix}-@{i} {
@@ -315,8 +312,8 @@ body.grid {
 	/* FILTER ---------------------------------------------------------*/
 
 	.backdrop-blur@{suffix} {
-		backdrop-filter: blur(3px);
-		background: rgba(0,0,0,0.1);
+		backdrop-filter: blur(5px);
+		background: rgba(0,0,0,0.5);
 	}
 
 	.backdrop-invert@{suffix} {
@@ -619,7 +616,17 @@ body.grid {
 /*----------------------------------------------------------------------
  * DEFAULTS & WORDPRESS OVERRIDES
  *----------------------------------------------------------------------*/
-ul:not(.no-bullets) {
+:root {
+	--wp--preset--spacing--20: .grid-full-height(1)[@ret];
+	--wp--preset--spacing--30: .grid-full-height(2)[@ret];
+	--wp--preset--spacing--40: .grid-full-height(3)[@ret];
+	--wp--preset--spacing--50: .grid-full-height(4)[@ret];
+	--wp--preset--spacing--60: .grid-full-height(5)[@ret];
+	--wp--preset--spacing--70: .grid-full-height(6)[@ret];
+	--wp--preset--spacing--80: .grid-full-height(7)[@ret];
+}
+
+:is(ul, ol):not(.no-bullets) {
 	.padding-left-1;
 }
 
@@ -627,26 +634,33 @@ ul:not(.no-bullets) {
 	gap: @gutter-width;
 }
 
-.wp-block-buttons {
-	.margin-bottom-1;
 
-	& > .wp-block-button {
-		padding: unset;
+
+article:is(.page, .post) {
+
+	.wp-block-buttons {
+		.margin-bottom-1;
+
+		& > .wp-block-button {
+			padding: unset;
+		}
 	}
-}
 
-figure.wp-block-image {
-	.margin-bottom-1;
-}
+	figure.wp-block-image {
+		.margin-y-2;
+	}
 
-.wp-block-columns {
-	.margin-bottom-1;
-}
+	.wp-block-columns {
+		.margin-bottom-1;
+	}
 
+	.wp-block-heading {
+		.margin-top-3;
+		.margin-bottom-2;
+	}
 
-article.page {
-	& > :is(h1, h2, h3, h4, h5, h6) {
-		.padding-bottom-1;
+	.wp-block-list {
+		.margin-bottom-1;
 	}
 
 }
@@ -655,6 +669,10 @@ article.page {
 	.padding-bottom-1;
 }
 
+body .wp-block-jetpack-calendly.calendly-style-inline {
+	height: 750px;
 
-
-
+	@media (width < 1461px) {
+		height: 1200px;
+	}
+}

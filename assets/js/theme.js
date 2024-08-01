@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
 		});
 	}
 
+
 	const recalculate = debounceListener(() => {
 		windowResize();
 		updateAutoRowSpan();
@@ -152,6 +153,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
 			controlled.addEventListener('mouseleave', mouseleave);
 		});
 	});
+
+
 
 
 

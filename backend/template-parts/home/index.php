@@ -32,7 +32,7 @@
 </div>
 
 <div class="col-span-full col-start-l-2 row-span-4">
-	<h2 class="font-color-grey">Our offerings...</h2>
+	<h2 class="font-color-grey line-height-4">Our offerings...</h2>
 </div>
 
 <div class="col-span-full row-span-40 grid">
@@ -138,7 +138,7 @@
 $latestPosts = wp_get_recent_posts(['numberposts' => 2], OBJECT);
 if($latestPosts): ?>
 <div class="col-span-full col-start-l-2 row-span-9">
-	<h2 class="font-color-grey padding-top-5">From the blog...</h2>
+	<h2 class="font-color-grey padding-top-4">From the blog...</h2>
 </div>
 
 <div class="col-fill-2 col-pull-2 row-span-auto padding-bottom-5 grid">
@@ -155,7 +155,7 @@ if($latestPosts): ?>
 				</h5>
 				<p class="line-height-1 cap-height-1 font-color-light-beige">
 					<i>
-						<?= get_the_date('F dS, Y', $post->ID); ?>
+						<?= get_the_date('F jS, Y', $post->ID); ?>
 
 					</i>
 				</p>

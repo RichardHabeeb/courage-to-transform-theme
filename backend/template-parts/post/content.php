@@ -4,12 +4,12 @@
 		id="post-<?php the_ID(); ?>">
 
 
-	<div class="height-24 flex-bottom" data-bg-image="<?= get_the_post_thumbnail_url() ?>">
-		<div class="padding-1 full-width backdrop-blur">
+	<div class="flex-bottom" data-bg-image="<?= get_the_post_thumbnail_url() ?>">
+		<div class="padding-1 margin-top-16 full-width backdrop-blur">
 			<a class="no-underline" href="<?php the_permalink(); ?>">
-				<h2 class="font-color-off-white blend-difference font-weight-300">
+				<h3 class="font-color-off-white blend-difference font-weight-300">
 					<?php the_title(); ?>
-				</h2>
+				</h3>
 			</a>
 			<p class="font-color-off-white blend-difference font-weight-300">
 				By&nbsp;
@@ -24,7 +24,7 @@
 
 	<div class="padding-1">
 
-		<?php the_content(); ?>
+		<?php the_content(__("Continue reading...", "textdomain")); ?>
 
 		<hr>
 
