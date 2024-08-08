@@ -14,7 +14,7 @@
 		<div class="col-start-l-13 col-span-6 row-span-9">
 			<h5>Follow us</h5>
 			<p>
-			<a href="https://www.facebook.com/lionsheartwellness"><i class="bi bi-facebook"></i></a>&emsp;<a href="http://instagram.com/couragetotransform"><i class="bi bi-instagram"></i></a>&emsp;<a href="http://tiktok.com/@couragetotransform"><i class="bi bi-tiktok"></i></a>&emsp;<a href="https://www.youtube.com/@couragetotransform"><i class="bi bi-youtube"></i></a>
+			<a href="https://www.facebook.com/couragetotransformcoaching"><i class="bi bi-facebook"></i></a>&emsp;<a href="http://instagram.com/couragetotransform"><i class="bi bi-instagram"></i></a>&emsp;<a href="http://tiktok.com/@couragetotransform"><i class="bi bi-tiktok"></i></a>&emsp;<a href="https://www.youtube.com/@couragetotransform"><i class="bi bi-youtube"></i></a>
 			</p>
 		</div>
 

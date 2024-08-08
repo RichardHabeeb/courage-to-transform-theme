@@ -23,7 +23,7 @@ $(build)/$(theme): $(build)/style.css $(build)
 	@zip -urv $(build)/$(theme) assets
 	@echo "[ZIP] backend"
 	@cd backend && zip -urv ../$(build)/$(theme) *
-	@zip -uv $(build)/$(theme) theme.json *
+	@zip -uv $(build)/$(theme) theme.json
 
 
 

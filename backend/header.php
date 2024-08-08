@@ -14,6 +14,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="preconnect" href="https://cdn.jsdelivr.net/">
 
+	<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/25700fc1812a6f69e044c10ad/8a01ffb9a91b8420fee7c8b95.js");</script>
+
+
 	<?php wp_head(); ?>
 </head>
 	<body <? body_class("grid") ?>>
@@ -52,6 +55,7 @@
 		 wp_nav_menu(array(
 			'theme_location' => 'primary',
 			'container' => false,
+			'menu_id' => 'menu-top-navbar',
 			'menu_class' =>
 				'grid ' .
 				'right-to-left ' .
